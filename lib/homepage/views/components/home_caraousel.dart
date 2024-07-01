@@ -77,10 +77,11 @@ class _HomeCraouselState extends State<HomeCaraousel> {
     double fontSize = screenWidth * 0.03;
     return CarouselSlider(
       options: CarouselOptions(
+        autoPlayInterval: const Duration(seconds: 5),
         autoPlay: true,
         enlargeCenterPage: true,
         viewportFraction: 2,
-        aspectRatio: 1.8,
+        aspectRatio: 1.9,
       ),
       items: imgNews.map((item) {
         return Builder(
@@ -115,18 +116,18 @@ class _HomeCraouselState extends State<HomeCaraousel> {
                           flex: 3,
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(
-                                5, 40, 28, 3), // Ubah padding di sini
+                                5, 40, 20, 3), // Ubah padding di sini
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
                                   width: size.width * 1,
-                                  height: size.height * 0.15,
+                                  height: size.height * 0.12,
                                   child: Text(
                                     item['contentText']!,
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 16,
+                                      fontSize: fontSize,
                                     ),
                                     maxLines: 6,
                                     textAlign: TextAlign.left,

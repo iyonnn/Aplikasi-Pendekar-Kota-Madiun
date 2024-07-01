@@ -122,7 +122,7 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    double fontSize = screenWidth * 0.031;
+    double fontSize = screenWidth * 0.030;
     return GestureDetector(
       onTap: press,
       child: SizedBox(

@@ -24,10 +24,6 @@ class Body extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            // HomeHeader(),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
             HomeBanner(),
             SizedBox(
               height: size.height * 0.02,
@@ -38,11 +34,11 @@ class Body extends StatelessWidget {
             ),
             Categories(),
             SizedBox(
-              height: size.height * 0.02,
+              height: size.height * 0.01,
             ),
             CategoriesSecond(),
             SizedBox(
-              height: size.height * 0.02,
+              height: size.height * 0.01,
             ),
             HomeDescription(),
             HomeCaraousel(),
