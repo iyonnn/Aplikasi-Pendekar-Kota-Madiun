@@ -12,22 +12,22 @@ class CategoriesSecond extends StatelessWidget {
     List<Map<String, dynamic>> categories = [
       {
         "icon": "assets/images/imgicon/digiform.png",
-        "text": "DIGIFORM",
+        "text": "DIGIFORM DUKCAPIL",
         "page": const webdigiform(),
       },
       {
         "icon": "assets/images/imgicon/rumahsakit.png",
-        "text": "ANTRIAN RUMAH SAKIT",
+        "text": "ANTRIAN RUMAH SAKIT SOGATEN",
         "page": const webantrianrs()
       },
       {
         "icon": "assets/images/imgicon/puskesmas.png",
-        "text": "ANTRIAN PUSKESMAS",
+        "text": "ANTRIAN PUSKESMAS KOTA MADIUN",
         "page": const webantrianpuskes()
       },
       {
         "icon": "assets/images/imgicon/menu.png",
-        "text": "Lainnya",
+        "text": "Layanan Lainnya >",
         "page": const Semuaaplikasi()
       },
     ];
@@ -70,36 +70,42 @@ class CategoryCardSecond extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.zero,
-      child: GestureDetector(
-        onTap: press,
-        child: SizedBox(
-          width: 85,
-          child: Column(
-            children: [
-              AspectRatio(
-                aspectRatio: 1,
+    return GestureDetector(
+      onTap: press,
+      child: SizedBox(
+        width: 85,
+        child: Column(
+          children: [
+            AspectRatio(
+              aspectRatio: 1,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15), // Sudut melengkung
+                ),
+                elevation: 6, // Bayangan untuk efek 3D
+                shadowColor: Colors.black.withOpacity(0.9), // Warna bayangan
                 child: Container(
                   padding: EdgeInsets.all(getProportionateScreenWidth(10)),
                   height: 45,
                   width: 45,
                   decoration: BoxDecoration(
                     color: hThirdColor,
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   child: Image.asset(icon, width: 10, height: 10),
                 ),
               ),
-              const SizedBox(height: 5),
-              Text(
-                text,
-                textAlign: TextAlign.center,
-                style:
-                    const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
+            ),
+            SizedBox(height: 5),
+            Text(
+              text,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+              ),
+            )
+          ],
         ),
       ),
     );

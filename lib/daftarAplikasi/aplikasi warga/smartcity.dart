@@ -1,9 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class websamrtcity extends StatefulWidget {
   const websamrtcity({Key? key}) : super(key: key);
@@ -14,98 +12,210 @@ class websamrtcity extends StatefulWidget {
 
 class _websamrtcityState extends State<websamrtcity> {
   bool isLoading = true;
-  final flutterWebviewPlugin = FlutterWebviewPlugin();
-
-  void startLoading() {
-    setState(() {
-      isLoading = true;
-    });
-
-    Timer(Duration(seconds: 10), () {
-      setState(() {
-        isLoading = false;
-      });
-    });
-  }
+  InAppWebViewController? _webViewController;
+  final String url = 'https://smartcity.madiunkota.go.id/';
 
   @override
   void initState() {
     super.initState();
-    flutterWebviewPlugin.onStateChanged.listen((state) {
-      if (state.type == WebViewState.startLoad) {
-        startLoading();
-      } else if (state.type == WebViewState.finishLoad) {
-        setState(() {
-          isLoading = false;
-        });
-      }
-    });
   }
 
   @override
   void dispose() {
-    flutterWebviewPlugin.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    double fontSize = screenWidth * 0.034;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blueGrey[100],
-        elevation: 0, // Menghilangkan bayangan di bawah AppBar
-        title: Text(
-          'Aplikasi Smartcity Kota Madiun',
-          style: TextStyle(
-            color: Colors.black, // Warna teks judul
-            fontSize: 20, // Ukuran teks judul
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_outlined, // Icon untuk menu navigasi
-            color: Colors.black, // Warna ikon
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-            // Aksi ketika ikon menu diklik
-          },
-        ),
-        actions: [],
-      ),
-      body: Stack(
-        children: [
-          WebviewScaffold(
-            url: "https://smartcity.madiunkota.go.id/",
-            withJavascript: true,
-            withZoom: true,
-            withLocalStorage: true,
-            hidden: false,
-            ignoreSSLErrors: true,
-            appCacheEnabled: true,
-          ),
-          if (isLoading)
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Column(
+          children: [
+            SizedBox(height: screenHeight * 0.01),
+            Expanded(
+              child: Stack(
                 children: [
-                  CircularProgressIndicator(
-                    color: Color.fromARGB(255, 212, 0, 255),
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      const Color.fromARGB(255, 221, 0, 0),
+                  InAppWebView(
+                    initialUrlRequest: URLRequest(url: Uri.parse(url)),
+                    initialOptions: InAppWebViewGroupOptions(
+                      crossPlatform: InAppWebViewOptions(
+                        useShouldOverrideUrlLoading: true,
+                        javaScriptEnabled: true,
+                        clearCache: true,
+                        cacheEnabled: true,
+                        transparentBackground: true,
+                        supportZoom: false,
+                        allowFileAccessFromFileURLs: true,
+                        allowUniversalAccessFromFileURLs: true,
+                      ),
                     ),
-                    backgroundColor: Color.fromARGB(255, 212, 0, 255),
+                    onWebViewCreated: (controller) {
+                      _webViewController = controller;
+                    },
+                    onLoadStop: (controller, url) async {
+                      setState(() {
+                        isLoading = false;
+                      });
+                      // Menggunakan JavaScript untuk menyembunyikan elemen yang tidak diinginkan
+                      //           controller.evaluateJavascript(source: '''
+                      //             var element = document.getElementsByClassName('navbar')[0];
+                      //   if (element != null) {
+                      //     element.style.display = 'none';
+                      //   }
+                      //    var sideMenu = document.getElementsByClassName('toolbar')[0];
+                      //   if (sideMenu != null) {
+                      //     sideMenu.style.display = 'none';
+                      //   }
+                      //   var header = document.getElementsByClassName('account-masthead')[0];
+                      //   if (header != null) {
+                      //     header.style.display = 'none';
+                      //   }
+                      //   var footer = document.getElementsByClassName('footer pt-5')[0];
+                      //   if (footer != null) {
+                      //     footer.style.display = 'none';
+                      //   }
+                      //   var second = document.getElementsByClassName('secondary col-md-3')[0];
+                      //   if (second != null) {
+                      //     second.style.display = 'none';
+                      //   }
+
+                      // ''');
+                    },
+                    onLoadStart: (controller, url) {
+                      setState(() {
+                        isLoading = true;
+                      });
+                    },
                   ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 30.0, 0, 0),
-                    child: Text("Mohon Menunggu..."),
-                  ),
+                  if (isLoading)
+                    Center(
+                      child: CircularProgressIndicator(
+                        color: const Color.fromARGB(255, 6, 97, 94),
+                      ),
+                    ),
                 ],
               ),
             ),
-        ],
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Container(
+                    width: screenWidth * 0.3,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 6, 97, 94),
+                      borderRadius: BorderRadius.circular(5),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 1,
+                          blurRadius: 2,
+                          offset: const Offset(0, 1),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        Icon(Icons.home,
+                            color: const Color.fromARGB(255, 255, 255, 255)),
+                        Text(
+                          'Kembali Ke Menu',
+                          style: TextStyle(
+                            fontSize: fontSize,
+                            color: Color.fromARGB(255, 255, 255, 255),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(width: screenWidth * 0.01),
+                GestureDetector(
+                  onTap: () {
+                    if (_webViewController != null) {
+                      _webViewController?.reload();
+                    }
+                  },
+                  child: Container(
+                    width: screenWidth * 0.3,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 6, 97, 94),
+                      borderRadius: BorderRadius.circular(5),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 1,
+                          blurRadius: 2,
+                          offset: const Offset(0, 1),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        Icon(Icons.refresh,
+                            color: const Color.fromARGB(255, 255, 255, 255)),
+                        Text(
+                          'Reload',
+                          style: TextStyle(
+                            fontSize: fontSize,
+                            color: Color.fromARGB(255, 255, 255, 255),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(width: screenWidth * 0.01),
+                GestureDetector(
+                  onTap: () {
+                    if (_webViewController != null) {
+                      _webViewController?.goBack();
+                    }
+                  },
+                  child: Container(
+                    width: screenWidth * 0.3,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 6, 97, 94),
+                      borderRadius: BorderRadius.circular(5),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 1,
+                          blurRadius: 2,
+                          offset: const Offset(0, 1),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        Icon(Icons.arrow_back,
+                            color: const Color.fromARGB(255, 255, 255, 255)),
+                        Text(
+                          'Page Sebelumnya',
+                          style: TextStyle(
+                            fontSize: fontSize,
+                            color: Color.fromARGB(255, 255, 255, 255),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

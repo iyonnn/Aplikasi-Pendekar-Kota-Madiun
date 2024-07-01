@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pendekar/constants/constant.dart';
-import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/aspirasirakyat.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/awaksigap.dart';
+import 'package:pendekar/daftarAplikasi/aplikasi%20warga/madiuntoday.dart';
+import 'package:pendekar/daftarAplikasi/aplikasi%20warga/peceltumpang.dart';
 import 'package:pendekar/homepage/size_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 // import 'package:flutter_launcher_name/flutter_launcher_name.dart';
@@ -11,15 +12,19 @@ class Categories extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> categories = [
       {
-        "icon": "assets/images/imgicon/bookingprc.png",
-        "text": "BOOKING PRC",
-        "appId": "com.kominfo.bookingprc",
-        "uriScheme": "bookingprc://",
+        "icon": "assets/images/imgicon/peceltumpang.png",
+        "text": "PECEL TUMPANG",
+        "page": webpecel(),
       },
+      // {
+      //   "icon": "assets/images/imgicon/aspirasirakyat.png",
+      //   "text": "ASPIRASI RAKYAT",
+      //   "page": webaspirasirakyat(),
+      // },
       {
-        "icon": "assets/images/imgicon/aspirasirakyat.png",
-        "text": "ASPIRASI RAKYAT",
-        "page": webaspirasirakyat(),
+        "icon": "assets/images/imgicon/madiuntoday.png",
+        "text": "MADIUNTODAY",
+        "page": webmadiuntoday(),
       },
       {
         "icon": "assets/images/imgicon/ekinerja.png",
@@ -29,7 +34,7 @@ class Categories extends StatelessWidget {
       },
       {
         "icon": "assets/images/imgicon/awaksigap2.png",
-        "text": "AWAK SIGAP",
+        "text": "AWAK SIGAP KOTA MADIUN",
         "page": webawaksigap(),
       },
     ];
@@ -116,6 +121,8 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    double fontSize = screenWidth * 0.031;
     return GestureDetector(
       onTap: press,
       child: SizedBox(
@@ -124,22 +131,32 @@ class CategoryCard extends StatelessWidget {
           children: [
             AspectRatio(
               aspectRatio: 1,
-              child: Container(
-                padding: EdgeInsets.all(getProportionateScreenWidth(10)),
-                height: 45,
-                width: 45,
-                decoration: BoxDecoration(
-                  color: hThirdColor,
-                  borderRadius: BorderRadius.circular(15),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15), // Sudut melengkung
                 ),
-                child: Image.asset(icon, width: 10, height: 10),
+                elevation: 6, // Bayangan untuk efek 3D
+                shadowColor: Colors.black.withOpacity(0.9), // Warna bayangan
+                child: Container(
+                  padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+                  height: 45,
+                  width: 45,
+                  decoration: BoxDecoration(
+                    color: hThirdColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Image.asset(icon, width: 10, height: 10),
+                ),
               ),
             ),
             SizedBox(height: 5),
             Text(
               text,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+              ),
             )
           ],
         ),

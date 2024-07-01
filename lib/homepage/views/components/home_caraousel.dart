@@ -73,6 +73,8 @@ class _HomeCraouselState extends State<HomeCaraousel> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final screenWidth = MediaQuery.of(context).size.width;
+    double fontSize = screenWidth * 0.03;
     return CarouselSlider(
       options: CarouselOptions(
         autoPlay: true,
@@ -180,14 +182,14 @@ class _HomeCraouselState extends State<HomeCaraousel> {
                             ),
                             SizedBox(width: 5),
                             Container(
-                              width: size.width * 0.47,
+                              width: size.width * 0.45,
                               height: size.height * 0.1,
                               child: Text(
                                 item['title']!,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
-                                  fontSize: 12,
+                                  fontSize: fontSize,
                                 ),
                                 overflow: TextOverflow.ellipsis,
                               ),

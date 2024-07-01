@@ -29,10 +29,12 @@ class _webabsenrapatState extends State<webabsenrapat> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Column(
+    double fontSize = screenWidth * 0.034;
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Column(
           children: [
             SizedBox(height: screenHeight * 0.01),
             Expanded(
@@ -129,6 +131,7 @@ class _webabsenrapatState extends State<webabsenrapat> {
                         Text(
                           'Kembali Ke Menu',
                           style: TextStyle(
+                            fontSize: fontSize,
                             color: Color.fromARGB(255, 255, 255, 255),
                           ),
                         ),
@@ -165,6 +168,7 @@ class _webabsenrapatState extends State<webabsenrapat> {
                         Text(
                           'Reload',
                           style: TextStyle(
+                            fontSize: fontSize,
                             color: Color.fromARGB(255, 255, 255, 255),
                           ),
                         ),
@@ -201,6 +205,7 @@ class _webabsenrapatState extends State<webabsenrapat> {
                         Text(
                           'Page Sebelumnya',
                           style: TextStyle(
+                            fontSize: fontSize,
                             color: Color.fromARGB(255, 255, 255, 255),
                           ),
                         ),

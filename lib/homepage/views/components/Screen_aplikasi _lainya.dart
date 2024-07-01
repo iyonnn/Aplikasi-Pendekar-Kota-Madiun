@@ -1,37 +1,27 @@
-// ignore_for_file: camel_case_types, prefer_const_constructors, unnecessary_new, sort_child_properties_last, non_constant_identifier_names
+// ignore_for_file: camel_case_types, prefer_const_constructors, unnecessary_new, sort_child_properties_last, non_constant_identifier_names, unused_local_variable
 
 import 'package:flutter/material.dart';
 import 'package:pendekar/constants/constant.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/Beasiswamahasiswa.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/analisaberita.dart';
-import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/aspirasirakyat.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/buktidukungspbe.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/carehub.dart';
-import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/dashboard.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/digiform.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/dinsosapp.dart';
-import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/ekak.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/emonev.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/esakip.dart';
-import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/esppd.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/esurat.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/ewaris.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/exec.dart';
-import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/gedungdiklat.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/jdih.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/lppd.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/manekin.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/manpro.dart';
-import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/ppkm.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/puskesos.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/retribusi.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/ruangrapat.dart';
-import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/satudata.dart';
-import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/sdm.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/sicakep.dart';
-import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/sikd.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/silandep.dart';
-import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/silapling.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/simandor.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/simonev.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/simpeg.dart';
@@ -49,9 +39,7 @@ import 'package:pendekar/daftarAplikasi/aplikasi%20warga/madiuntoday.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/matawarga.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/peceltumpang.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/ppid.dart';
-import 'package:pendekar/daftarAplikasi/aplikasi%20warga/servicedesk.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/sicaker.dart';
-import 'package:pendekar/daftarAplikasi/aplikasi%20warga/sikepo.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/smartcity.dart';
 import 'package:pendekar/homepage/size_config.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -159,6 +147,8 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
   // Widget _tittlepage() dan Widget _beranda() tidak berubah
 
   Widget _tittlelayananasn() {
+    final screenWidth = MediaQuery.of(context).size.width;
+    double fontSize = screenWidth * 0.05;
     return Row(
       children: <Widget>[
         IconButton(
@@ -175,7 +165,7 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
           textAlign: TextAlign.left,
           style: TextStyle(
             color: Color.fromARGB(255, 11, 11, 11),
-            fontSize: 20.0,
+            fontSize: fontSize,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -194,23 +184,6 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
         "appId": "gov.madiun.ekin_madiun_andro",
         "uriScheme": "ekinerja://",
       },
-      {
-        "icon": "assets/images/imgicon/proumkm.png",
-        "text": "PROUMKM",
-        "appId": "com.kominfo.proumkm",
-        "uriScheme": "proumkm://",
-      },
-      {
-        "icon": "assets/images/imgicon/absenrapat.png",
-        "text": "ABSEN RAPAT",
-        "appId": "com.kominfo.absen_rapat",
-        "uriScheme": "proumkm://",
-      },
-      {
-        "icon": "assets/images/imgicon/bakul.png",
-        "text": "J.D.I.H",
-        "page": webjdih(),
-      },
 
       {
         "icon": "assets/images/imgicon/buktidukungspbe.png",
@@ -218,64 +191,26 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
         "page": webspbe(),
       },
       {
-        "icon": "assets/images/imgicon/carehub.png",
-        "text": "CAREHUB",
-        "page": webcarehub(),
+        "icon": "assets/images/imgicon/bakul.png",
+        "text": "J.D.I.H",
+        "page": webjdih(),
       },
-
       {
         "icon": "assets/images/imgicon/digiform.png",
-        "text": "DIGIFORM",
+        "text": "DIGIFORM DUKCAPIL",
         "page": webdigiform(),
       },
-      {
-        "icon": "assets/images/imgicon/dinsos.png",
-        "text": "DINSOS APP",
-        "page": webdinsosapp(),
-      },
 
-      {
-        "icon": "assets/images/imgicon/ekak.png",
-        "text": "EKAK",
-        "page": webekak(),
-      },
       {
         "icon": "assets/images/imgicon/emonev.png",
         "text": "EMONEV",
         "page": webemonev(),
       },
       {
-        "icon": "assets/images/imgicon/esakip.png",
-        "text": "ESAKIP",
-        "page": webesakip(),
-      },
-      {
-        "icon": "assets/images/imgicon/esppd.png",
-        "text": "ESPPD",
-        "page": webesppd(),
-      },
-      {
         "icon": "assets/images/imgicon/esurat.png",
         "text": "ESURAT",
         "page": webesurat(),
       },
-
-      {
-        "icon": "assets/images/imgicon/exec.png",
-        "text": "EXECUTIVE SUMMARY",
-        "page": webexec(),
-      },
-      {
-        "icon": "assets/images/imgicon/gedungdiklat.png",
-        "text": "GEDUNG DIKLAT",
-        "page": webgedungdiklat(),
-      },
-      {
-        "icon": "assets/images/imgicon/lppd.png",
-        "text": "LPPD",
-        "page": weblppd(),
-      },
-
       {
         "icon": "assets/images/imgicon/manekin.png",
         "text": "MANEKIN",
@@ -287,15 +222,76 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
         "page": webmanpro(),
       },
       {
+        "icon": "assets/images/imgicon/skp.png",
+        "text": "SKP",
+        "page": webskp(),
+      },
+      {
+        "icon": "assets/images/imgicon/simpeg.png",
+        "text": "SIMPEG",
+        "page": websimpeg(),
+      },
+
+      {
+        "icon": "assets/images/imgicon/carehub.png",
+        "text": "CAREHUB",
+        "page": webcarehub(),
+      },
+
+      {
+        "icon": "assets/images/imgicon/dinsos.png",
+        "text": "DINSOS APP",
+        "page": webdinsosapp(),
+      },
+      {
+        "icon": "assets/images/imgicon/proumkm.png",
+        "text": "PROUMKM",
+        "appId": "com.kominfo.proumkm",
+        "uriScheme": "proumkm://",
+      },
+      // {
+      //   "icon": "assets/images/imgicon/ekak.png",
+      //   "text": "EKAK",
+      //   "page": webekak(),
+      // },
+
+      {
+        "icon": "assets/images/imgicon/esakip.png",
+        "text": "ESAKIP",
+        "page": webesakip(),
+      },
+      // {
+      //   "icon": "assets/images/imgicon/esppd.png",
+      //   "text": "ESPPD",
+      //   "page": webesppd(),
+      // },
+
+      {
+        "icon": "assets/images/imgicon/exec.png",
+        "text": "EXECUTIVE SUMMARY",
+        "page": webexec(),
+      },
+      // {
+      //   "icon": "assets/images/imgicon/gedungdiklat.png",
+      //   "text": "GEDUNG DIKLAT",
+      //   "page": webgedungdiklat(),
+      // },
+      {
+        "icon": "assets/images/imgicon/lppd.png",
+        "text": "LPPD",
+        "page": weblppd(),
+      },
+
+      {
         "icon": "assets/images/imgicon/matawarga.png",
         "text": "MATAWARGA",
         "page": webmatawarga(),
       },
-      {
-        "icon": "assets/images/imgicon/ppkm.png",
-        "text": "PPKM",
-        "page": webppkm(),
-      },
+      // {
+      //   "icon": "assets/images/imgicon/ppkm.png",
+      //   "text": "PPKM",
+      //   "page": webppkm(),
+      // },
       {
         "icon": "assets/images/imgicon/puskesos.png",
         "text": "PUSKESOS",
@@ -311,36 +307,28 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
         "text": "RUANG RAPAT",
         "page": webruangrapat(),
       },
-      {
-        "icon": "assets/images/imgicon/satudata.png",
-        "text": "SATUDATA",
-        "page": websatudata(),
-      },
-      {
-        "icon": "assets/images/imgicon/sdm.png",
-        "text": "SDM",
-        "page": websdm(),
-      },
-      {
-        "icon": "assets/images/imgicon/skp.png",
-        "text": "SKP",
-        "page": webskp(),
-      },
-      {
-        "icon": "assets/images/imgicon/sikd.png",
-        "text": "SIKD",
-        "page": websikd(),
-      },
-      {
-        "icon": "assets/images/imgicon/silapling.png",
-        "text": "SILAPLING",
-        "page": websilapling(),
-      },
-      {
-        "icon": "assets/images/imgicon/simpeg.png",
-        "text": "SIMPEG",
-        "page": websimpeg(),
-      },
+      // {
+      //   "icon": "assets/images/imgicon/satudata.png",
+      //   "text": "SATUDATA",
+      //   "page": websatudata(),
+      // },
+      // {
+      //   "icon": "assets/images/imgicon/sdm.png",
+      //   "text": "SDM",
+      //   "page": websdm(),
+      // },
+
+      // {
+      //   "icon": "assets/images/imgicon/sikd.png",
+      //   "text": "SIKD",
+      //   "page": websikd(),
+      // },
+      // {
+      //   "icon": "assets/images/imgicon/silapling.png",
+      //   "text": "SILAPLING",
+      //   "page": websilapling(),
+      // },
+
       {
         "icon": "assets/images/imgicon/simandor.png",
         "text": "SIMANDOR",
@@ -374,11 +362,11 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
         "text": "SMARTCITY",
         "page": websamrtcity(),
       },
-      {
-        "icon": "assets/images/imgicon/wbs.png",
-        "text": "WBS",
-        "page": webwbs(),
-      },
+      // {
+      //   "icon": "assets/images/imgicon/wbs.png",
+      //   "text": "WBS",
+      //   "page": webwbs(),
+      // },
     ];
 
     Future<void> launchPlayStore(String appId) async {
@@ -434,6 +422,8 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
   }
 
   Widget _tittlelayananpublik() {
+    final screenWidth = MediaQuery.of(context).size.width;
+    double fontSize = screenWidth * 0.05;
     return Row(
       children: <Widget>[
         IconButton(
@@ -450,7 +440,7 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
           textAlign: TextAlign.left,
           style: TextStyle(
             color: Color.fromARGB(255, 11, 11, 11),
-            fontSize: 20.0,
+            fontSize: fontSize,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -468,7 +458,7 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
       },
       {
         "icon": "assets/images/imgicon/pasaremadiun.png",
-        "text": "Pasar eMadiun",
+        "text": "PASAR E-MADIUN",
         "appId": "com.kominfo.pasar_emadiun",
         "uriScheme": "com.kominfo.pasar_emadiun://",
       },
@@ -504,11 +494,11 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
         "text": "SICAKER",
         "page": websicaker(),
       },
-      {
-        "icon": "assets/images/imgicon/sikepo.png",
-        "text": "SIKEPO",
-        "page": websikepo(),
-      },
+      // {
+      //   "icon": "assets/images/imgicon/sikepo.png",
+      //   "text": "SIKEPO",
+      //   "page": websikepo(),
+      // },
     ];
 
     Future<void> launchPlayStore(String appId) async {
@@ -536,7 +526,7 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         childAspectRatio: 1,
-        crossAxisSpacing: 10.0,
+        crossAxisSpacing: 1.0,
         mainAxisSpacing: 10.0,
       ),
       itemCount: filteredCategories.length,
@@ -564,6 +554,8 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
   }
 
   Widget _tittlelayananpengduan() {
+    final screenWidth = MediaQuery.of(context).size.width;
+    double fontSize = screenWidth * 0.05;
     return Row(
       children: <Widget>[
         IconButton(
@@ -580,7 +572,7 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
           textAlign: TextAlign.left,
           style: TextStyle(
             color: Color.fromARGB(255, 11, 11, 11),
-            fontSize: 20.0,
+            fontSize: fontSize,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -594,24 +586,20 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
 
       {
         "icon": "assets/images/imgicon/wbs.png",
-        "text": "WBS",
+        "text": "WBS KOTA MADIUN",
         "page": webwbs(),
       },
-      {
-        "icon": "assets/images/imgicon/aspirasirakyat.png",
-        "text": "ASPIRASI RAKYAT",
-        "page": webaspirasirakyat(),
-      },
+      // {
+      //   "icon": "assets/images/imgicon/aspirasirakyat.png",
+      //   "text": "ASPIRASI RAKYAT",
+      //   "page": webaspirasirakyat(),
+      // },
       {
         "icon": "assets/images/imgicon/awaksigap.png",
         "text": "AWAK SIGAP",
         "page": webawaksigap(),
       },
-      {
-        "icon": "assets/images/imgicon/servicedesk.png",
-        "text": "SERVICEDESK",
-        "page": webservicedesk(),
-      },
+
       {
         "icon": "assets/images/imgicon/ppid.png",
         "text": "PPID",
@@ -644,7 +632,7 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         childAspectRatio: 1,
-        crossAxisSpacing: 10.0,
+        crossAxisSpacing: 1.0,
         mainAxisSpacing: 10.0,
       ),
       itemCount: filteredCategories.length,
@@ -672,6 +660,8 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
   }
 
   Widget _tittlelayanankesehatan() {
+    final screenWidth = MediaQuery.of(context).size.width;
+    double fontSize = screenWidth * 0.05;
     return Row(
       children: <Widget>[
         IconButton(
@@ -688,7 +678,7 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
           textAlign: TextAlign.left,
           style: TextStyle(
             color: Color.fromARGB(255, 11, 11, 11),
-            fontSize: 20.0,
+            fontSize: fontSize,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -742,7 +732,7 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         childAspectRatio: 1,
-        crossAxisSpacing: 10.0,
+        crossAxisSpacing: 1.0,
         mainAxisSpacing: 10.0,
       ),
       itemCount: filteredCategories.length,
@@ -770,6 +760,8 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
   }
 
   Widget _tittlelayananinformasi() {
+    final screenWidth = MediaQuery.of(context).size.width;
+    double fontSize = screenWidth * 0.05;
     return Row(
       children: <Widget>[
         IconButton(
@@ -786,7 +778,7 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
           textAlign: TextAlign.left,
           style: TextStyle(
             color: Color.fromARGB(255, 11, 11, 11),
-            fontSize: 20.0,
+            fontSize: fontSize,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -803,11 +795,7 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
         "text": "ANALISA BERITA",
         "page": webanalisaberita(),
       },
-      {
-        "icon": "assets/images/imgicon/dashboard.png",
-        "text": "DASHBOARD",
-        "page": webdashboard(),
-      },
+
       {
         "icon": "assets/images/imgicon/edu.png",
         "text": "EDU",
@@ -894,6 +882,10 @@ class _berandaCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    double fontSize = screenWidth * 0.032;
     return GestureDetector(
       onTap: press,
       child: Container(
@@ -901,19 +893,26 @@ class _berandaCard extends StatelessWidget {
         height: getProportionateScreenWidth(10),
         child: Column(
           children: [
-            Container(
-              padding: EdgeInsets.all(getProportionateScreenWidth(10)),
-              width: getProportionateScreenWidth(80),
-              height: getProportionateScreenWidth(70),
-              decoration: BoxDecoration(
-                color: hThirdColor,
-                borderRadius: BorderRadius.circular(20),
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20), // Sudut melengkung
               ),
-              child: Center(
-                child: Image.asset(
-                  icon,
-                  width: getProportionateScreenWidth(70),
-                  height: getProportionateScreenWidth(70),
+              elevation: 5, // Bayangan untuk efek 3D
+              shadowColor: Colors.black.withOpacity(1), // Warna bayangan
+              child: Container(
+                padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+                height: screenHeight * 0.08,
+                width: screenWidth * 0.22,
+                decoration: BoxDecoration(
+                  color: hThirdColor,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Center(
+                  child: Image.asset(
+                    icon,
+                    width: getProportionateScreenWidth(70),
+                    height: getProportionateScreenWidth(70),
+                  ),
                 ),
               ),
             ),
@@ -922,7 +921,8 @@ class _berandaCard extends StatelessWidget {
               child: Text(
                 text,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                style:
+                    TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
               ),
             ),
           ],
@@ -932,53 +932,57 @@ class _berandaCard extends StatelessWidget {
   }
 }
 
-class _appwargasanCard extends StatelessWidget {
-  const _appwargasanCard({
-    Key? key,
-    required this.icon,
-    required this.text,
-    required this.press,
-  }) : super(key: key);
+// class _appwargasanCard extends StatelessWidget {
+//   const _appwargasanCard({
+//     Key? key,
+//     required this.icon,
+//     required this.text,
+//     required this.press,
+//   }) : super(key: key);
 
-  final String icon, text;
-  final GestureTapCallback press;
+//   final String icon, text;
+//   final GestureTapCallback press;
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: press,
-      child: Container(
-        width: getProportionateScreenWidth(10),
-        height: getProportionateScreenWidth(10),
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.all(getProportionateScreenWidth(10)),
-              width: getProportionateScreenWidth(80),
-              height: getProportionateScreenWidth(70),
-              decoration: BoxDecoration(
-                color: hThirdColor,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Center(
-                child: Image.asset(
-                  icon,
-                  width: getProportionateScreenWidth(70),
-                  height: getProportionateScreenWidth(70),
-                ),
-              ),
-            ),
-            SizedBox(height: 5),
-            Expanded(
-              child: Text(
-                text,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     final screenWidth = MediaQuery.of(context).size.width;
+//     final screenHeight = MediaQuery.of(context).size.height;
+//     double fontSize = screenWidth * 0.032;
+//     return GestureDetector(
+//       onTap: press,
+//       child: Container(
+//         width: getProportionateScreenWidth(10),
+//         height: getProportionateScreenWidth(10),
+//         child: Column(
+//           children: [
+//             Container(
+//               padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+//               width: getProportionateScreenWidth(80),
+//               height: getProportionateScreenWidth(70),
+//               decoration: BoxDecoration(
+//                 color: hThirdColor,
+//                 borderRadius: BorderRadius.circular(20),
+//               ),
+//               child: Center(
+//                 child: Image.asset(
+//                   icon,
+//                   width: getProportionateScreenWidth(70),
+//                   height: getProportionateScreenWidth(70),
+//                 ),
+//               ),
+//             ),
+//             SizedBox(height: 5),
+//             Expanded(
+//               child: Text(
+//                 text,
+//                 textAlign: TextAlign.center,
+//                 style:
+//                     TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

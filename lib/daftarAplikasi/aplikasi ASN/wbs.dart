@@ -13,7 +13,7 @@ class webwbs extends StatefulWidget {
 class _webwbsState extends State<webwbs> {
   bool isLoading = true;
   InAppWebViewController? _webViewController;
-  final String url = 'https://skp.madiunkota.go.id/login';
+  final String url = 'https://wbs.madiunkota.go.id/';
 
   @override
   void initState() {
@@ -29,10 +29,11 @@ class _webwbsState extends State<webwbs> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Column(
+    double fontSize = screenWidth * 0.034;
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Column(
           children: [
             SizedBox(height: screenHeight * 0.01),
             Expanded(
@@ -129,6 +130,7 @@ class _webwbsState extends State<webwbs> {
                         Text(
                           'Kembali Ke Menu',
                           style: TextStyle(
+                            fontSize: fontSize,
                             color: Color.fromARGB(255, 255, 255, 255),
                           ),
                         ),
@@ -165,6 +167,7 @@ class _webwbsState extends State<webwbs> {
                         Text(
                           'Reload',
                           style: TextStyle(
+                            fontSize: fontSize,
                             color: Color.fromARGB(255, 255, 255, 255),
                           ),
                         ),
@@ -201,6 +204,7 @@ class _webwbsState extends State<webwbs> {
                         Text(
                           'Page Sebelumnya',
                           style: TextStyle(
+                            fontSize: fontSize,
                             color: Color.fromARGB(255, 255, 255, 255),
                           ),
                         ),
