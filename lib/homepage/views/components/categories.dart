@@ -1,11 +1,23 @@
+// ignore_for_file: duplicate_import, unused_import
+
+// import 'package:flutter_launcher_name/flutter_launcher_name.dart';
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:audio_session/audio_session.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'package:just_audio/just_audio.dart';
+import 'package:marquee/marquee.dart';
 import 'package:pendekar/constants/constant.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/awaksigap.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/madiuntoday.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/peceltumpang.dart';
 import 'package:pendekar/homepage/size_config.dart';
+import 'package:siri_wave/siri_wave.dart';
 import 'package:url_launcher/url_launcher.dart';
-// import 'package:flutter_launcher_name/flutter_launcher_name.dart';
 
 class Categories extends StatelessWidget {
   @override
@@ -23,7 +35,7 @@ class Categories extends StatelessWidget {
       // },
       {
         "icon": "assets/images/imgicon/madiuntoday.png",
-        "text": "MADIUNTODAY",
+        "text": "MADIUN TODAY",
         "page": webmadiuntoday(),
       },
       {
@@ -126,15 +138,15 @@ class CategoryCard extends StatelessWidget {
     return GestureDetector(
       onTap: press,
       child: SizedBox(
-        width: 85,
+        width: 70,
         child: Column(
           children: [
             AspectRatio(
               aspectRatio: 1,
               child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15), // Sudut melengkung
-                ),
+                shape: CircleBorder(
+                    // borderRadius: BorderRadius.circular(15), // Sudut melengkung
+                    ),
                 elevation: 6, // Bayangan untuk efek 3D
                 shadowColor: Colors.black.withOpacity(0.9), // Warna bayangan
                 child: Container(
@@ -142,8 +154,9 @@ class CategoryCard extends StatelessWidget {
                   height: 45,
                   width: 45,
                   decoration: BoxDecoration(
-                    color: hThirdColor,
-                    borderRadius: BorderRadius.circular(10),
+                    shape: BoxShape.circle,
+                    color: hThirdColor.withOpacity(0.5).withOpacity(0.5),
+                    // borderRadius: BorderRadius.circular(10),
                   ),
                   child: Image.asset(icon, width: 10, height: 10),
                 ),
@@ -164,3 +177,5 @@ class CategoryCard extends StatelessWidget {
     );
   }
 }
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_const_literals_to_create_immutables, must_call_super, prefer_typing_uninitialized_variables, use_key_in_widget_constructors, library_private_types_in_public_api, avoid_print, unnecessary_null_comparison, prefer_is_empty, sized_box_for_whitespace, unused_local_variable, no_leading_underscores_for_local_identifiers
+

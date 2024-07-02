@@ -68,7 +68,7 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey[100],
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         elevation: 0, // Menghilangkan bayangan di bawah AppBar
         title: Text(
           'Aplikasi Kota Madiun',
@@ -904,7 +904,7 @@ class _berandaCard extends StatelessWidget {
                 height: screenHeight * 0.08,
                 width: screenWidth * 0.22,
                 decoration: BoxDecoration(
-                  color: hThirdColor,
+                  color: hThirdColor.withOpacity(0.5),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Center(
@@ -960,7 +960,7 @@ class _berandaCard extends StatelessWidget {
 //               width: getProportionateScreenWidth(80),
 //               height: getProportionateScreenWidth(70),
 //               decoration: BoxDecoration(
-//                 color: hThirdColor,
+//                 color: hThirdColor.withOpacity(0.5),
 //                 borderRadius: BorderRadius.circular(20),
 //               ),
 //               child: Center(

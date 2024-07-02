@@ -11,11 +11,11 @@ class HomeDescription extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: getProportionateScreenWidth(20),
-        vertical: getProportionateScreenHeight(15),
+        vertical: getProportionateScreenHeight(10),
       ),
       width: double.infinity,
       child: Text(
-        "Berita Terbaru",
+        "Berita Terkini",
         style: TextStyle(
             color: Colors.black.withOpacity(0.8),
             fontSize: 18,

@@ -17,12 +17,12 @@ class CategoriesSecond extends StatelessWidget {
       },
       {
         "icon": "assets/images/imgicon/rumahsakit.png",
-        "text": "ANTRIAN RUMAH SAKIT SOGATEN",
+        "text": "ANTRIAN RSUD",
         "page": const webantrianrs()
       },
       {
         "icon": "assets/images/imgicon/puskesmas.png",
-        "text": "ANTRIAN PUSKESMAS KOTA MADIUN",
+        "text": "ANTRIAN PUSKESMAS",
         "page": const webantrianpuskes()
       },
       {
@@ -70,18 +70,20 @@ class CategoryCardSecond extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    double fontSize = screenWidth * 0.029;
     return GestureDetector(
       onTap: press,
       child: SizedBox(
-        width: 85,
+        width: 70,
         child: Column(
           children: [
             AspectRatio(
               aspectRatio: 1,
               child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15), // Sudut melengkung
-                ),
+                shape: CircleBorder(
+                    // borderRadius: BorderRadius.circular(15), // Sudut melengkung
+                    ),
                 elevation: 6, // Bayangan untuk efek 3D
                 shadowColor: Colors.black.withOpacity(0.9), // Warna bayangan
                 child: Container(
@@ -89,8 +91,9 @@ class CategoryCardSecond extends StatelessWidget {
                   height: 45,
                   width: 45,
                   decoration: BoxDecoration(
-                    color: hThirdColor,
-                    borderRadius: BorderRadius.circular(10),
+                    shape: BoxShape.circle,
+                    color: hThirdColor.withOpacity(0.5).withOpacity(0.5),
+                    // borderRadius: BorderRadius.circular(10),
                   ),
                   child: Image.asset(icon, width: 10, height: 10),
                 ),
@@ -101,7 +104,7 @@ class CategoryCardSecond extends StatelessWidget {
               text,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 13,
+                fontSize: fontSize,
                 fontWeight: FontWeight.bold,
               ),
             )
@@ -177,7 +180,7 @@ class CategoryCardSecond extends StatelessWidget {
 //                 height: getProportionateScreenWidth(55),
 //                 width: getProportionateScreenWidth(55),
 //                 decoration: BoxDecoration(
-//                   color: hThirdColor,
+//                   color: hThirdColor.withOpacity(0.5),
 //                   borderRadius: BorderRadius.circular(10),
 //                 ),
 //                 child: Image.asset(icon, width: 10, height: 10),

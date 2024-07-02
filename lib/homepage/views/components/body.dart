@@ -11,6 +11,8 @@ import 'package:pendekar/homepage/views/components/home_caraousel.dart';
 import 'package:pendekar/homepage/views/components/home_description.dart';
 import 'package:pendekar/homepage/views/components/home_header.dart';
 import 'package:pendekar/homepage/views/components/home_wa.dart';
+import 'package:pendekar/homepage/views/components/ppidbanner.dart';
+import 'package:pendekar/homepage/views/components/radio93fm.dart';
 import 'package:pendekar/homepage/views/components/search_field.dart';
 
 import 'icon_btn_with_counter.dart';
@@ -37,6 +39,14 @@ class Body extends StatelessWidget {
               height: size.height * 0.01,
             ),
             CategoriesSecond(),
+            SizedBox(
+              height: size.height * 0.01,
+            ),
+            ppidBanner(),
+            SizedBox(
+              height: size.height * 0.01,
+            ),
+            HomePlayer(),
             SizedBox(
               height: size.height * 0.01,
             ),

@@ -49,8 +49,14 @@ dependencies:
   http: ^1.0.0
   desktop_webview_window: ^0.2.3
   font_awesome_flutter: ^10.7.0
+  audio_session: ^0.1.19
+  just_audio: ^0.9.38
+  marquee: ^2.2.3
+  siri_wave: ^2.0.0+1
   # animated_splash_screen: ^1.3.0
   # page_transition: ^2.0.9
+dependency_overrides:
+  fading_edge_scrollview: ^4.1.1
 
 dev_dependencies:
   flutter_test:

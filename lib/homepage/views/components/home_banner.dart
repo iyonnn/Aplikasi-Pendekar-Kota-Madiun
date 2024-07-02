@@ -14,7 +14,7 @@ class HomeBanner extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: 150,
       decoration: BoxDecoration(
-          color: Colors.black,
+          color: const Color.fromARGB(255, 255, 255, 255),
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
@@ -75,8 +75,6 @@ class HomeBanner extends StatelessWidget {
                       color: Colors.yellow,
                       size: 18,
                     ),
-                    SizedBox(width: 7),
-                    Text("Tes")
                   ]),
                 ),
               ],

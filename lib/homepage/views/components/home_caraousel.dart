@@ -77,6 +77,8 @@ class _HomeCraouselState extends State<HomeCaraousel> {
     double fontSize = screenWidth * 0.03;
     return CarouselSlider(
       options: CarouselOptions(
+        scrollPhysics: BouncingScrollPhysics(),
+        pageSnapping: true,
         autoPlayInterval: const Duration(seconds: 5),
         autoPlay: true,
         enlargeCenterPage: true,
