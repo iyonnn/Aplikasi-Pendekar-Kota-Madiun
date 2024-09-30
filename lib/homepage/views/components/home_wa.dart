@@ -6,7 +6,7 @@ class whatsapp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: AnnouncementCard(
-        announcementText: 'WHATSAPP AWAK SIGAP',
+        announcementText: 'WHATSAPP AWAK SIGAP 112',
         onPressed: () {
           // Aksi yang akan dilakukan saat tombol ditekan
           print('Tombol Klik Disini ditekan!');

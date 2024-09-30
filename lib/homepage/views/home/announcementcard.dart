@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_local_variable
 
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,9 +27,13 @@ class AnnouncementCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    final screenWidth = MediaQuery.of(context).size.width;
+    double fontSizeL = screenWidth * 0.05;
+    double fontSize = screenWidth * 0.03;
     return Container(
       margin: EdgeInsets.symmetric(
-        horizontal: 15,
+        horizontal: 5,
       ),
       child: GestureDetector(
         onTap: () {
@@ -53,6 +57,7 @@ class AnnouncementCard extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 22, vertical: 10),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Image.asset(
                     'assets/images/imgicon/awaksigap.png', // Ganti dengan path logo WhatsApp Anda
@@ -60,22 +65,34 @@ class AnnouncementCard extends StatelessWidget {
                     height: 40,
                   ),
                   SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      announcementText,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Colors.white,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        announcementText,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: fontSizeL,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
+                      Text(
+                        '(Pengaduan Gawat Darurat Kota Madiun 112)',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: fontSize,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
+                  SizedBox(width: 8),
                   Icon(
                     Icons.arrow_forward_outlined,
                     color: Colors.white,
                   ),
-                  SizedBox(width: 8),
                 ],
               ),
             ),

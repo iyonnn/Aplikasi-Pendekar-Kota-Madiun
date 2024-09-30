@@ -48,12 +48,8 @@ class ppidBanner extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Container(
-                          height: size.height * 0.1,
-                          child: Image.network(
-                            'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWJrOTd3MTgyZGFxcmZweWQ2YjE4bm1pYWZvYmxua2h1eWx4azVhdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/dVK7fduLI0scujoqM1/200.webp',
-                            width: 80,
-                            height: 80,
-                          )),
+                        height: size.height * 0.1,
+                      ),
                     ],
                   ),
                 ),

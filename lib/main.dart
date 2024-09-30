@@ -1,9 +1,39 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/material.dart';
-import 'package:pendekar/homepage/views/splash/splashscreen.dart';
+import 'dart:io';
 
-void main() {
+import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:pendekar/homepage/views/splash/splashscreen.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Inisialisasi FlutterDownloader
+  await FlutterDownloader.initialize(
+    debug: true, // debug: false untuk versi produksi
+  );
+
+  if (Platform.isAndroid) {
+    await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
+    var swAvailable = await AndroidWebViewFeature.isFeatureSupported(
+        AndroidWebViewFeature.SERVICE_WORKER_BASIC_USAGE);
+    var swInterceptAvailable = await AndroidWebViewFeature.isFeatureSupported(
+        AndroidWebViewFeature.SERVICE_WORKER_SHOULD_INTERCEPT_REQUEST);
+    if (swAvailable && swInterceptAvailable) {
+      AndroidServiceWorkerController serviceWorkerController =
+          AndroidServiceWorkerController.instance();
+      serviceWorkerController.serviceWorkerClient = AndroidServiceWorkerClient(
+        shouldInterceptRequest: (request) async {
+          print(request);
+          return null;
+        },
+      );
+    }
+  }
+
   runApp(const MyApp());
 }
 

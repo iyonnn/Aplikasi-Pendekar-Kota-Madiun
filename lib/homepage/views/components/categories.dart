@@ -1,4 +1,4 @@
-// ignore_for_file: duplicate_import, unused_import
+// ignore_for_file: duplicate_import, unused_import, deprecated_member_use
 
 // import 'package:flutter_launcher_name/flutter_launcher_name.dart';
 import 'dart:async';
@@ -14,62 +14,63 @@ import 'package:marquee/marquee.dart';
 import 'package:pendekar/constants/constant.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/awaksigap.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/madiuntoday.dart';
+import 'package:pendekar/daftarAplikasi/aplikasi%20warga/opendata.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/peceltumpang.dart';
+import 'package:pendekar/homepage/menu/layananAsn.dart';
+import 'package:pendekar/homepage/menu/layanankesehatan.dart';
+import 'package:pendekar/homepage/menu/layananpengaduan.dart';
+import 'package:pendekar/homepage/menu/layananpublik.dart';
 import 'package:pendekar/homepage/size_config.dart';
+import 'package:pendekar/homepage/views/components/dialogWarning.dart';
 import 'package:siri_wave/siri_wave.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Categories extends StatelessWidget {
+class Categories extends StatefulWidget {
+  @override
+  _CategoriesState createState() => _CategoriesState();
+}
+
+class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
+  late AnimationController controller;
+
+  @override
+  initState() {
+    super.initState();
+    controller = BottomSheet.createAnimationController(this);
+    controller.duration = Duration(milliseconds: 500);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     List<Map<String, dynamic>> categories = [
       {
-        "icon": "assets/images/imgicon/peceltumpang.png",
-        "text": "PECEL TUMPANG",
-        "page": webpecel(),
-      },
-      // {
-      //   "icon": "assets/images/imgicon/aspirasirakyat.png",
-      //   "text": "ASPIRASI RAKYAT",
-      //   "page": webaspirasirakyat(),
-      // },
-      {
-        "icon": "assets/images/imgicon/madiuntoday.png",
-        "text": "MADIUN TODAY",
-        "page": webmadiuntoday(),
+        "icon": "assets/images/imgicon/pecel.png",
+        "text": "Pecel Tumpang",
+        "page": WebPecel(),
       },
       {
-        "icon": "assets/images/imgicon/ekinerja.png",
-        "text": "E-kinerja Kota Madiun ",
-        "appId": "gov.madiun.ekin_madiun_andro",
-        "uriScheme": "com.kominfo.pasar_emadiun://",
+        "icon": "assets/images/imgicon/matawarga.png",
+        "text": "Layanan Publik",
+        "page": LayananPublik(),
       },
       {
-        "icon": "assets/images/imgicon/awaksigap2.png",
-        "text": "AWAK SIGAP KOTA MADIUN",
-        "page": webawaksigap(),
+        "icon": "assets/images/imgicon/puskesmas.png",
+        "text": "Layanan Kesehatan",
+        "page": LayananKesehatan(),
+      },
+      {
+        "icon": "assets/images/imgicon/aspirasirakyat.png",
+        "text": "Layanan Pengaduan",
+        "page": LayananPengaduan(),
       },
     ];
-
-    // Future<void> launchPlayStore(String appId) async {
-    //   String playStoreUrl =
-    //       'https://play.google.com/store/apps/details?id=$appId';
-    //   await launch(playStoreUrl);
-    // }
-
-    // void openApp(String appId) async {
-    //   if (appId.isNotEmpty) {
-    //     bool isAppInstalled = await canLaunch(appId);
-    //     if (isAppInstalled) {
-    //       await LaunchMode.externalApplication;
-    //       // launch(appId);
-    //     } else {
-    //       await launchPlayStore(appId);
-    //     }
-    //   } else {
-    //     // Tindakan lain ketika tombol ditekan, misalnya membuka halaman web
-    //   }
-    // }
 
     Future<void> launchPlayStore(String appId) async {
       String playStoreUrl =
@@ -85,36 +86,78 @@ class Categories extends StatelessWidget {
       }
     }
 
+    void showAllApps(String categoryText) {
+      Widget page;
+      switch (categoryText) {
+        case "Pecel Tumpang":
+          page = WebPecel();
+          break;
+        case "Layanan Publik":
+          page = LayananPublik();
+          break;
+        case "Layanan Kesehatan":
+          page = LayananKesehatan();
+          break;
+        case "Layanan Pengaduan":
+          page = LayananPengaduan();
+          break;
+        default:
+          return; // Handle default case here
+      }
+
+      showModalBottomSheet(
+        transitionAnimationController: controller,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(30),
+          ),
+        ),
+        context: context,
+        builder: (BuildContext context) {
+          return page;
+        },
+      );
+    }
+
     return Padding(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ...List.generate(
-            categories.length,
-            (index) => CategoryCard(
-              icon: categories[index]["icon"],
-              text: categories[index]["text"],
-              press: () {
-                if (categories[index].containsKey("appId") &&
-                    categories[index].containsKey("uriScheme")) {
-                  openApp(
-                    categories[index]["appId"],
-                    categories[index]["uriScheme"],
-                  );
+        children: List.generate(
+          categories.length,
+          (index) => CategoryCard(
+            icon: categories[index]["icon"],
+            text: categories[index]["text"],
+            press: () {
+              if (categories[index]["text"] == "Pecel Tumpang") {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => categories[index]["page"],
+                  ),
+                );
+                return; // Keluar dari fungsi press setelah menavigasi
+              }
+
+              if (categories[index].containsKey("appId") &&
+                  categories[index].containsKey("uriScheme")) {
+                openApp(
+                  categories[index]["appId"],
+                  categories[index]["uriScheme"],
+                );
+              } else {
+                if (categories[index]["page"] is DialogWarning) {
+                  DialogWarning.show(context);
                 } else {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => categories[index]["page"]),
-                  );
+                  showAllApps(categories[index]["text"]);
                 }
-              },
-            ),
+              }
+            },
           ),
-        ],
+        ),
       ),
     );
   }
@@ -138,7 +181,7 @@ class CategoryCard extends StatelessWidget {
     return GestureDetector(
       onTap: press,
       child: SizedBox(
-        width: 70,
+        width: 80,
         child: Column(
           children: [
             AspectRatio(
@@ -151,14 +194,14 @@ class CategoryCard extends StatelessWidget {
                 shadowColor: Colors.black.withOpacity(0.9), // Warna bayangan
                 child: Container(
                   padding: EdgeInsets.all(getProportionateScreenWidth(10)),
-                  height: 45,
-                  width: 45,
+                  height: 80,
+                  width: 80,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: hThirdColor.withOpacity(0.5).withOpacity(0.5),
                     // borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Image.asset(icon, width: 10, height: 10),
+                  child: Image.asset(icon, width: 35, height: 35),
                 ),
               ),
             ),

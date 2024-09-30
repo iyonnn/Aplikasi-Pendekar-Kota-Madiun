@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_local_variable
 
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class webjdih extends StatelessWidget {
   final List<Map<String, String>> cardData = [
@@ -260,34 +261,27 @@ class _WebViewPageState extends State<WebViewPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Container(
-                    width: screenWidth * 0.3,
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 6, 97, 94),
-                      borderRadius: BorderRadius.circular(5),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          spreadRadius: 1,
-                          blurRadius: 2,
-                          offset: const Offset(0, 1),
-                        ),
-                      ],
+                Tooltip(
+                  message: 'Kembali Ke Menu',
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 6, 97, 94),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      elevation: 2,
                     ),
                     child: Column(
                       children: [
-                        Icon(Icons.home,
-                            color: const Color.fromARGB(255, 255, 255, 255)),
+                        Icon(Icons.home, color: Colors.white),
                         Text(
                           'Kembali Ke Menu',
                           style: TextStyle(
                             fontSize: fontSize,
-                            color: Color.fromARGB(255, 255, 255, 255),
+                            color: Colors.white,
                           ),
                         ),
                       ],
@@ -295,36 +289,29 @@ class _WebViewPageState extends State<WebViewPage> {
                   ),
                 ),
                 SizedBox(width: screenWidth * 0.01),
-                GestureDetector(
-                  onTap: () {
-                    if (_webViewController != null) {
-                      _webViewController?.reload();
-                    }
-                  },
-                  child: Container(
-                    width: screenWidth * 0.3,
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 6, 97, 94),
-                      borderRadius: BorderRadius.circular(5),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          spreadRadius: 1,
-                          blurRadius: 2,
-                          offset: const Offset(0, 1),
-                        ),
-                      ],
+                Tooltip(
+                  message: 'Muat Ulang',
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_webViewController != null) {
+                        _webViewController?.reload();
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 6, 97, 94),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      elevation: 2,
                     ),
                     child: Column(
                       children: [
-                        Icon(Icons.refresh,
-                            color: const Color.fromARGB(255, 255, 255, 255)),
+                        Icon(Icons.refresh, color: Colors.white),
                         Text(
-                          'Reload',
+                          'Muat Ulang',
                           style: TextStyle(
                             fontSize: fontSize,
-                            color: Color.fromARGB(255, 255, 255, 255),
+                            color: Colors.white,
                           ),
                         ),
                       ],
@@ -332,36 +319,29 @@ class _WebViewPageState extends State<WebViewPage> {
                   ),
                 ),
                 SizedBox(width: screenWidth * 0.01),
-                GestureDetector(
-                  onTap: () {
-                    if (_webViewController != null) {
-                      _webViewController?.goBack();
-                    }
-                  },
-                  child: Container(
-                    width: screenWidth * 0.3,
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 6, 97, 94),
-                      borderRadius: BorderRadius.circular(5),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          spreadRadius: 1,
-                          blurRadius: 2,
-                          offset: const Offset(0, 1),
-                        ),
-                      ],
+                Tooltip(
+                  message: 'Sebelumnya',
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_webViewController != null) {
+                        _webViewController?.goBack();
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 6, 97, 94),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      elevation: 2,
                     ),
                     child: Column(
                       children: [
-                        Icon(Icons.arrow_back,
-                            color: const Color.fromARGB(255, 255, 255, 255)),
+                        Icon(Icons.arrow_back, color: Colors.white),
                         Text(
-                          'Page Sebelumnya',
+                          'Sebelumnya',
                           style: TextStyle(
                             fontSize: fontSize,
-                            color: Color.fromARGB(255, 255, 255, 255),
+                            color: Colors.white,
                           ),
                         ),
                       ],

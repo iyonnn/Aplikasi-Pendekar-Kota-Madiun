@@ -12,7 +12,7 @@ class SplashScreen extends StatelessWidget {
     SizeConfig().init(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'peceland (ASN)',
+      title: 'Pendekar Kota Madiun',
       home: AnimatedSplashScreen(
         splash: 'assets/images/splash.gif',
         nextScreen: HomePage(),

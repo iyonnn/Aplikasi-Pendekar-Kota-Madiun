@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class websilandep extends StatefulWidget {
   const websilandep({Key? key}) : super(key: key);
@@ -18,11 +19,40 @@ class _websilandepState extends State<websilandep> {
   @override
   void initState() {
     super.initState();
+    requestPermissions();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  Future<void> requestPermissions() async {
+    // Meminta izin di sini
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.camera,
+      Permission.storage,
+      Permission.photos,
+      Permission.mediaLibrary,
+      Permission.accessMediaLocation,
+    ].request();
+
+    // Cek apakah izin diberikan atau tidak
+    if (statuses[Permission.camera]?.isGranted == false) {
+      print('Permission to access camera is denied');
+    }
+    if (statuses[Permission.storage]?.isGranted == false) {
+      print('Permission to access storage is denied');
+    }
+    if (statuses[Permission.photos]?.isGranted == false) {
+      print('Permission to access photos is denied');
+    }
+    if (statuses[Permission.mediaLibrary]?.isGranted == false) {
+      print('Permission to access media library is denied');
+    }
+    if (statuses[Permission.accessMediaLocation]?.isGranted == false) {
+      print('Permission to access media location is denied');
+    }
   }
 
   @override
@@ -43,19 +73,59 @@ class _websilandepState extends State<websilandep> {
                     initialUrlRequest: URLRequest(url: Uri.parse(url)),
                     initialOptions: InAppWebViewGroupOptions(
                       crossPlatform: InAppWebViewOptions(
-                        useShouldOverrideUrlLoading: true,
-                        javaScriptEnabled: true,
-                        clearCache: true,
+                        clearCache: false,
                         cacheEnabled: true,
                         transparentBackground: true,
-                        supportZoom: false,
+                        supportZoom: true,
+                        useOnDownloadStart: true,
+                        mediaPlaybackRequiresUserGesture: false,
                         allowFileAccessFromFileURLs: true,
                         allowUniversalAccessFromFileURLs: true,
+                        javaScriptCanOpenWindowsAutomatically: true,
+                        javaScriptEnabled: true,
+                      ),
+                      android: AndroidInAppWebViewOptions(
+                        useHybridComposition: true,
+                        allowContentAccess: true,
+                        allowFileAccess: true,
                       ),
                     ),
                     onWebViewCreated: (controller) {
                       _webViewController = controller;
                     },
+                    androidOnPermissionRequest:
+                        (InAppWebViewController controller, String origin,
+                            List<String> resources) async {
+                      var response = await showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: Text("Permintaan Izin"),
+                          content: Text(
+                              "Ijinkan aplikasi mengakses foto dan media?"),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pop(PermissionRequestResponseAction.GRANT);
+                              },
+                              child: Text("Izinkan Akses"),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pop(PermissionRequestResponseAction.DENY);
+                              },
+                              child: Text("Tolak Akses"),
+                            ),
+                          ],
+                        ),
+                      );
+
+                      return PermissionRequestResponse(
+                          resources: resources,
+                          action: PermissionRequestResponseAction.GRANT);
+                    },
+                    // Event lainnya di sini
                     onLoadStop: (controller, url) async {
                       setState(() {
                         isLoading = false;
@@ -104,34 +174,27 @@ class _websilandepState extends State<websilandep> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Container(
-                    width: screenWidth * 0.3,
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 6, 97, 94),
-                      borderRadius: BorderRadius.circular(5),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          spreadRadius: 1,
-                          blurRadius: 2,
-                          offset: const Offset(0, 1),
-                        ),
-                      ],
+                Tooltip(
+                  message: 'Kembali Ke Menu',
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 6, 97, 94),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      elevation: 2,
                     ),
                     child: Column(
                       children: [
-                        Icon(Icons.home,
-                            color: const Color.fromARGB(255, 255, 255, 255)),
+                        Icon(Icons.home, color: Colors.white),
                         Text(
                           'Kembali Ke Menu',
                           style: TextStyle(
                             fontSize: fontSize,
-                            color: Color.fromARGB(255, 255, 255, 255),
+                            color: Colors.white,
                           ),
                         ),
                       ],
@@ -139,36 +202,29 @@ class _websilandepState extends State<websilandep> {
                   ),
                 ),
                 SizedBox(width: screenWidth * 0.01),
-                GestureDetector(
-                  onTap: () {
-                    if (_webViewController != null) {
-                      _webViewController?.reload();
-                    }
-                  },
-                  child: Container(
-                    width: screenWidth * 0.3,
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 6, 97, 94),
-                      borderRadius: BorderRadius.circular(5),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          spreadRadius: 1,
-                          blurRadius: 2,
-                          offset: const Offset(0, 1),
-                        ),
-                      ],
+                Tooltip(
+                  message: 'Muat Ulang',
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_webViewController != null) {
+                        _webViewController?.reload();
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 6, 97, 94),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      elevation: 2,
                     ),
                     child: Column(
                       children: [
-                        Icon(Icons.refresh,
-                            color: const Color.fromARGB(255, 255, 255, 255)),
+                        Icon(Icons.refresh, color: Colors.white),
                         Text(
-                          'Reload',
+                          'Muat Ulang',
                           style: TextStyle(
                             fontSize: fontSize,
-                            color: Color.fromARGB(255, 255, 255, 255),
+                            color: Colors.white,
                           ),
                         ),
                       ],
@@ -176,36 +232,29 @@ class _websilandepState extends State<websilandep> {
                   ),
                 ),
                 SizedBox(width: screenWidth * 0.01),
-                GestureDetector(
-                  onTap: () {
-                    if (_webViewController != null) {
-                      _webViewController?.goBack();
-                    }
-                  },
-                  child: Container(
-                    width: screenWidth * 0.3,
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 6, 97, 94),
-                      borderRadius: BorderRadius.circular(5),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          spreadRadius: 1,
-                          blurRadius: 2,
-                          offset: const Offset(0, 1),
-                        ),
-                      ],
+                Tooltip(
+                  message: 'Sebelumnya',
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_webViewController != null) {
+                        _webViewController?.goBack();
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 6, 97, 94),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      elevation: 2,
                     ),
                     child: Column(
                       children: [
-                        Icon(Icons.arrow_back,
-                            color: const Color.fromARGB(255, 255, 255, 255)),
+                        Icon(Icons.arrow_back, color: Colors.white),
                         Text(
-                          'Page Sebelumnya',
+                          'Sebelumnya',
                           style: TextStyle(
                             fontSize: fontSize,
-                            color: Color.fromARGB(255, 255, 255, 255),
+                            color: Colors.white,
                           ),
                         ),
                       ],

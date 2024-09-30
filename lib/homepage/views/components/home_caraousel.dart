@@ -75,151 +75,156 @@ class _HomeCraouselState extends State<HomeCaraousel> {
     Size size = MediaQuery.of(context).size;
     final screenWidth = MediaQuery.of(context).size.width;
     double fontSize = screenWidth * 0.03;
-    return CarouselSlider(
-      options: CarouselOptions(
-        scrollPhysics: BouncingScrollPhysics(),
-        pageSnapping: true,
-        autoPlayInterval: const Duration(seconds: 5),
-        autoPlay: true,
-        enlargeCenterPage: true,
-        viewportFraction: 2,
-        aspectRatio: 1.9,
-      ),
-      items: imgNews.map((item) {
-        return Builder(
-          builder: (BuildContext context) {
-            return GestureDetector(
-              onTap: () {
-                _launchInstagram(item['instagramUrl']!);
-              },
-              child: Container(
-                padding: EdgeInsets.all(5),
-                margin: EdgeInsets.symmetric(horizontal: 22, vertical: 10),
-                width: size.width * 1,
-                height: size.height * 1,
-                child: Stack(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                            flex: 2,
-                            child: Container(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(
-                                    15), // Sesuaikan radius dengan keinginan Anda
-                                child: Image.network(
-                                  item['imageUrl']!,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            )),
-                        SizedBox(width: 10),
-                        Expanded(
-                          flex: 3,
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(
-                                5, 40, 20, 3), // Ubah padding di sini
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  width: size.width * 1,
-                                  height: size.height * 0.12,
-                                  child: Text(
-                                    item['contentText']!,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: fontSize,
-                                    ),
-                                    maxLines: 6,
-                                    textAlign: TextAlign.left,
-                                    overflow: TextOverflow.ellipsis,
+    return Container(
+      child: CarouselSlider(
+        options: CarouselOptions(
+          scrollPhysics: BouncingScrollPhysics(),
+          pageSnapping: true,
+          autoPlayInterval: const Duration(seconds: 5),
+          autoPlay: true,
+          enlargeCenterPage: true,
+          viewportFraction: 1,
+          aspectRatio: 16 / 9,
+          autoPlayCurve: Curves.elasticOut,
+          autoPlayAnimationDuration: const Duration(seconds: 1),
+        ),
+        items: imgNews.map((item) {
+          return Builder(
+            builder: (BuildContext context) {
+              return GestureDetector(
+                onTap: () {
+                  _launchInstagram(item['instagramUrl']!);
+                },
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  margin: EdgeInsets.symmetric(horizontal: 22, vertical: 15),
+                  width: size.width * 1,
+                  height: size.height * 1,
+                  child: Stack(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                              flex: 2,
+                              child: Container(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(
+                                      15), // Sesuaikan radius dengan keinginan Anda
+                                  child: Image.network(
+                                    item['imageUrl']!,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Positioned(
-                      top: 1,
-                      left: size.width * 0.4,
-                      child: Container(
-                        width: size.width * 0.57,
-                        height: size.height * 0.04,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment(0.8, 1),
-                            colors: <Color>[
-                              Color(0xff1f005c),
-                              Color(0xff5b0060),
-                              Color(0xff870160),
-                              Color(0xffac255e),
-                              Color(0xffca485c),
-                              Color(0xffe16b5c),
-                              Color(0xfff39060),
-                              Color(0xffffb56b),
-                            ], // Gradient from https://learnui.design/tools/gradient-generator.html
-                            tileMode: TileMode.mirror,
-                          ),
-                          // Warna hitam dengan opacity
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                            topRight: Radius.circular(8),
-                            bottomRight: Radius.circular(15),
-                            bottomLeft: Radius.circular(8),
-                          ),
-                        ),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              FontAwesomeIcons
-                                  .instagram, // Icon untuk Instagram
-                              color: Colors.white,
-                              size: 16,
-                            ),
-                            SizedBox(width: 5),
-                            Container(
-                              width: size.width * 0.45,
-                              height: size.height * 0.1,
-                              child: Text(
-                                item['title']!,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: fontSize,
-                                ),
-                                overflow: TextOverflow.ellipsis,
+                              )),
+                          SizedBox(width: 10),
+                          Expanded(
+                            flex: 3,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                  5, 45, 20, 3), // Ubah padding di sini
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: size.width * 1,
+                                    height: size.height * 0.12,
+                                    child: Text(
+                                      item['contentText']!,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: fontSize,
+                                      ),
+                                      maxLines: 6,
+                                      textAlign: TextAlign.left,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
+                          ),
+                        ],
+                      ),
+                      Positioned(
+                        top: 1,
+                        left: size.width * 0.363,
+                        child: Container(
+                          width: size.width * 0.50,
+                          height: size.height * 0.04,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment(0.8, 1),
+                              colors: <Color>[
+                                Color(0xff1f005c),
+                                Color(0xff5b0060),
+                                Color(0xff870160),
+                                Color(0xffac255e),
+                                Color(0xffca485c),
+                                Color(0xffe16b5c),
+                                Color(0xfff39060),
+                                Color(0xffffb56b),
+                              ], // Gradient from https://learnui.design/tools/gradient-generator.html
+                              tileMode: TileMode.mirror,
+                            ),
+                            // Warna hitam dengan opacity
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(15),
+                              topRight: Radius.circular(8),
+                              bottomRight: Radius.circular(15),
+                              bottomLeft: Radius.circular(8),
+                            ),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                FontAwesomeIcons
+                                    .instagram, // Icon untuk Instagram
+                                color: Colors.white,
+                                size: 16,
+                              ),
+                              SizedBox(width: 5),
+                              Container(
+                                width: size.width * 0.39,
+                                height: size.height * 0.1,
+                                child: Text(
+                                  item['title']!,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: fontSize,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: Colors.black),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.6),
+                        offset: Offset(0.0, 2.0),
+                        blurRadius: 8.0,
+                        spreadRadius: 2.0,
+                      ),
+                    ],
+                  ),
                 ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.6),
-                      offset: Offset(0.0, 2.0),
-                      blurRadius: 8.0,
-                      spreadRadius: 3.0,
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
-      }).toList(),
+              );
+            },
+          );
+        }).toList(),
+      ),
     );
   }
 

@@ -13,15 +13,16 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '2'
+    flutterVersionCode = '3'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.1'
+    flutterVersionName = '1.3'
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
@@ -34,7 +35,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "com.kominfo.pendekarkotamadiun"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -55,11 +56,13 @@ android {
         applicationId "com.kominfo.pendekarkotamadiun"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 25
+        targetSdkVersion 34
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        minSdkVersion flutter.minSdkVersion 
+         multiDexEnabled true
+         ndkVersion "25.1.8937393"
     }
 
  signingConfigs {
@@ -89,4 +92,6 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.webkit:webkit:1.4.0'
+
 }

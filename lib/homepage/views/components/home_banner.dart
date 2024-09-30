@@ -1,86 +1,116 @@
-// ignore_for_file: prefer_const_constructors, duplicate_ignore, prefer_const_literals_to_create_immutables
+// ignore_for_file: library_private_types_in_public_api, unused_local_variable
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-class HomeBanner extends StatelessWidget {
-  const HomeBanner({
-    super.key,
-  });
+class HomeBanner extends StatefulWidget {
+  const HomeBanner({super.key});
+
+  @override
+  _HomeBannerState createState() => _HomeBannerState();
+}
+
+class _HomeBannerState extends State<HomeBanner> {
+  int _current = 0;
+  final CarouselController _controller = CarouselController();
+
+  final List<String> imageList = [
+    "assets/images/banner/webbanner.png",
+    "assets/images/banner/bannermadkot.jpeg",
+    // "assets/images/banner/webbanner.png"
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 22, vertical: 10),
-      width: MediaQuery.of(context).size.width,
-      height: 150,
-      decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 255, 255, 255),
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.black.withOpacity(0.6),
-                offset: Offset(0.0, 10.0),
-                blurRadius: 10.0,
-                spreadRadius: -6.0),
-          ],
-          image: DecorationImage(
-              image: Image.asset("assets/images/banner/webbanner.png").image,
-              fit: BoxFit.contain)),
-      child: Stack(
+    Size size = MediaQuery.of(context).size;
+    final screenWidth = MediaQuery.of(context).size.width;
+    double fontSize = screenWidth * 0.03;
+    return SafeArea(
+      child: Column(
         children: [
-          Align(
-            // ignore: sort_child_properties_last
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5.0),
-              child: Text(
-                "",
-                style: TextStyle(fontSize: 19),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            alignment: Alignment.center,
+          SizedBox(
+            height: size.height * 0.01,
           ),
-          Align(
-            // ignore: sort_child_properties_last
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(5),
-                  margin: EdgeInsets.all(18),
-                  decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.4),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Row(children: [
-                    // ignore: prefer_const_constructors
-                    Icon(
-                      Icons.star,
-                      color: Colors.yellow,
-                      size: 18,
+          CarouselSlider(
+            items: imageList.map((imagePath) {
+              return Builder(
+                builder: (BuildContext context) {
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Container(
+                      width: size.width * 0.85,
+                      margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        image: DecorationImage(
+                          image: AssetImage(imagePath),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      child: const Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 5.0),
+                              child: Text(
+                                "",
+                                style: TextStyle(fontSize: 19),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ]),
-                ),
-                Container(
-                  padding: EdgeInsets.all(5),
-                  margin: EdgeInsets.all(18),
-                  decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.4),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Row(children: [
-                    // ignore: prefer_const_constructors
-                    Icon(
-                      Icons.mode_night_rounded,
-                      color: Colors.yellow,
-                      size: 18,
-                    ),
-                  ]),
-                ),
-              ],
+                  );
+                },
+              );
+            }).toList(),
+            carouselController: _controller,
+            options: CarouselOptions(
+              height: size.height * 0.15,
+              enlargeCenterPage: true,
+              autoPlay: true,
+              aspectRatio: 16 / 9,
+              autoPlayInterval: const Duration(seconds: 3),
+              autoPlayAnimationDuration: const Duration(milliseconds: 2000),
+              viewportFraction: 1,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _current = index;
+                });
+              },
             ),
-            alignment: Alignment.bottomLeft,
-          )
+          ),
+          SizedBox(
+            height: size.height * 0.01,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: imageList.asMap().entries.map((entry) {
+              return GestureDetector(
+                onTap: () => _controller.animateToPage(entry.key),
+                child: Container(
+                  width: 20.0,
+                  height: 5.0,
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 5.0, horizontal: 4.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    shape: BoxShape.rectangle,
+                    color: (Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black)
+                        .withOpacity(_current == entry.key ? 0.9 : 0.4),
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
         ],
       ),
     );

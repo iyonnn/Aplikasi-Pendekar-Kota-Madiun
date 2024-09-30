@@ -1,16 +1,21 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, avoid_print, unnecessary_brace_in_string_interps
+
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class webedu extends StatefulWidget {
-  const webedu({Key? key}) : super(key: key);
+class WebEdu extends StatefulWidget {
+  const WebEdu({Key? key}) : super(key: key);
 
   @override
-  _webeduState createState() => _webeduState();
+  _WebEduState createState() => _WebEduState();
 }
 
-class _webeduState extends State<webedu> {
+class _WebEduState extends State<WebEdu> {
   bool isLoading = true;
   InAppWebViewController? _webViewController;
   final String url = 'https://edu.madiunkota.go.id/';
@@ -18,11 +23,41 @@ class _webeduState extends State<webedu> {
   @override
   void initState() {
     super.initState();
+    requestPermissions();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
+  Future<void> requestPermissions() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.camera,
+      Permission.manageExternalStorage,
+      Permission.photos,
+      Permission.mediaLibrary,
+      Permission.accessMediaLocation,
+    ].request();
+
+    if (statuses[Permission.camera]?.isGranted == false) {
+      print('Permission to access camera is denied');
+    }
+    if (statuses[Permission.manageExternalStorage]?.isGranted == false) {
+      print('Permission to access storage is denied');
+    }
+    if (statuses[Permission.photos]?.isGranted == false) {
+      print('Permission to access photos is denied');
+    }
+    if (statuses[Permission.mediaLibrary]?.isGranted == false) {
+      print('Permission to access media library is denied');
+    }
+    if (statuses[Permission.accessMediaLocation]?.isGranted == false) {
+      print('Permission to access media location is denied');
+    }
+  }
+
+  Future<String> getDownloadPath() async {
+    Directory? appDocDir = await getExternalStorageDirectory();
+    if (appDocDir == null) {
+      throw Exception("External storage directory not found");
+    }
+    return appDocDir.path;
   }
 
   @override
@@ -30,6 +65,7 @@ class _webeduState extends State<webedu> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     double fontSize = screenWidth * 0.034;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -43,47 +79,83 @@ class _webeduState extends State<webedu> {
                     initialUrlRequest: URLRequest(url: Uri.parse(url)),
                     initialOptions: InAppWebViewGroupOptions(
                       crossPlatform: InAppWebViewOptions(
-                        useShouldOverrideUrlLoading: true,
-                        javaScriptEnabled: true,
-                        clearCache: true,
+                        clearCache: false,
                         cacheEnabled: true,
                         transparentBackground: true,
-                        supportZoom: false,
+                        supportZoom: true,
+                        useOnDownloadStart: true,
+                        mediaPlaybackRequiresUserGesture: false,
                         allowFileAccessFromFileURLs: true,
                         allowUniversalAccessFromFileURLs: true,
+                        javaScriptCanOpenWindowsAutomatically: true,
+                        javaScriptEnabled: true,
+                      ),
+                      android: AndroidInAppWebViewOptions(
+                        useHybridComposition: true,
+                        allowContentAccess: true,
+                        allowFileAccess: true,
                       ),
                     ),
                     onWebViewCreated: (controller) {
                       _webViewController = controller;
                     },
+                    androidOnPermissionRequest:
+                        (InAppWebViewController controller, String origin,
+                            List<String> resources) async {
+                      var response = await showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: Text("Permintaan Izin"),
+                          content: Text(
+                              "Ijinkan aplikasi mengakses foto dan media?"),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pop(PermissionRequestResponseAction.GRANT);
+                              },
+                              child: Text("Izinkan Akses"),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pop(PermissionRequestResponseAction.DENY);
+                              },
+                              child: Text("Tolak Akses"),
+                            ),
+                          ],
+                        ),
+                      );
+
+                      return PermissionRequestResponse(
+                          resources: resources,
+                          action: PermissionRequestResponseAction.GRANT);
+                    },
+                    // Event lainnya di sini
+                    onDownloadStart: (controller, url) async {
+                      try {
+                        String savedDir = await getDownloadPath();
+                        final myDir = Directory(savedDir);
+                        print("onDownload ${url}\n ${myDir.path}");
+
+                        if (!await myDir.exists()) {
+                          await myDir.create(recursive: true);
+                        }
+
+                        await FlutterDownloader.enqueue(
+                          url: url.toString(),
+                          savedDir: savedDir,
+                          showNotification: true,
+                          openFileFromNotification: true,
+                        );
+                      } catch (e) {
+                        print('Error downloading file: $e');
+                      }
+                    },
                     onLoadStop: (controller, url) async {
                       setState(() {
                         isLoading = false;
                       });
-                      // Menggunakan JavaScript untuk menyembunyikan elemen yang tidak diinginkan
-                      //           controller.evaluateJavascript(source: '''
-                      //             var element = document.getElementsByClassName('navbar')[0];
-                      //   if (element != null) {
-                      //     element.style.display = 'none';
-                      //   }
-                      //    var sideMenu = document.getElementsByClassName('toolbar')[0];
-                      //   if (sideMenu != null) {
-                      //     sideMenu.style.display = 'none';
-                      //   }
-                      //   var header = document.getElementsByClassName('account-masthead')[0];
-                      //   if (header != null) {
-                      //     header.style.display = 'none';
-                      //   }
-                      //   var footer = document.getElementsByClassName('footer pt-5')[0];
-                      //   if (footer != null) {
-                      //     footer.style.display = 'none';
-                      //   }
-                      //   var second = document.getElementsByClassName('secondary col-md-3')[0];
-                      //   if (second != null) {
-                      //     second.style.display = 'none';
-                      //   }
-
-                      // ''');
                     },
                     onLoadStart: (controller, url) {
                       setState(() {
@@ -104,34 +176,27 @@ class _webeduState extends State<webedu> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Container(
-                    width: screenWidth * 0.3,
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 6, 97, 94),
-                      borderRadius: BorderRadius.circular(5),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          spreadRadius: 1,
-                          blurRadius: 2,
-                          offset: const Offset(0, 1),
-                        ),
-                      ],
+                Tooltip(
+                  message: 'Kembali Ke Menu',
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 6, 97, 94),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      elevation: 2,
                     ),
                     child: Column(
                       children: [
-                        Icon(Icons.home,
-                            color: const Color.fromARGB(255, 255, 255, 255)),
+                        Icon(Icons.home, color: Colors.white),
                         Text(
                           'Kembali Ke Menu',
                           style: TextStyle(
                             fontSize: fontSize,
-                            color: Color.fromARGB(255, 255, 255, 255),
+                            color: Colors.white,
                           ),
                         ),
                       ],
@@ -139,36 +204,29 @@ class _webeduState extends State<webedu> {
                   ),
                 ),
                 SizedBox(width: screenWidth * 0.01),
-                GestureDetector(
-                  onTap: () {
-                    if (_webViewController != null) {
-                      _webViewController?.reload();
-                    }
-                  },
-                  child: Container(
-                    width: screenWidth * 0.3,
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 6, 97, 94),
-                      borderRadius: BorderRadius.circular(5),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          spreadRadius: 1,
-                          blurRadius: 2,
-                          offset: const Offset(0, 1),
-                        ),
-                      ],
+                Tooltip(
+                  message: 'Muat Ulang',
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_webViewController != null) {
+                        _webViewController?.reload();
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 6, 97, 94),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      elevation: 2,
                     ),
                     child: Column(
                       children: [
-                        Icon(Icons.refresh,
-                            color: const Color.fromARGB(255, 255, 255, 255)),
+                        Icon(Icons.refresh, color: Colors.white),
                         Text(
-                          'Reload',
+                          'Muat Ulang',
                           style: TextStyle(
                             fontSize: fontSize,
-                            color: Color.fromARGB(255, 255, 255, 255),
+                            color: Colors.white,
                           ),
                         ),
                       ],
@@ -176,36 +234,29 @@ class _webeduState extends State<webedu> {
                   ),
                 ),
                 SizedBox(width: screenWidth * 0.01),
-                GestureDetector(
-                  onTap: () {
-                    if (_webViewController != null) {
-                      _webViewController?.goBack();
-                    }
-                  },
-                  child: Container(
-                    width: screenWidth * 0.3,
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 6, 97, 94),
-                      borderRadius: BorderRadius.circular(5),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          spreadRadius: 1,
-                          blurRadius: 2,
-                          offset: const Offset(0, 1),
-                        ),
-                      ],
+                Tooltip(
+                  message: 'Sebelumnya',
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_webViewController != null) {
+                        _webViewController?.goBack();
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 6, 97, 94),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      elevation: 2,
                     ),
                     child: Column(
                       children: [
-                        Icon(Icons.arrow_back,
-                            color: const Color.fromARGB(255, 255, 255, 255)),
+                        Icon(Icons.arrow_back, color: Colors.white),
                         Text(
-                          'Page Sebelumnya',
+                          'Sebelumnya',
                           style: TextStyle(
                             fontSize: fontSize,
-                            color: Color.fromARGB(255, 255, 255, 255),
+                            color: Colors.white,
                           ),
                         ),
                       ],

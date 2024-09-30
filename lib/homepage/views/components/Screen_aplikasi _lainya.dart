@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, prefer_const_constructors, unnecessary_new, sort_child_properties_last, non_constant_identifier_names, unused_local_variable
+// ignore_for_file: camel_case_types, prefer_const_constructors, unnecessary_new, sort_child_properties_last, non_constant_identifier_names, unused_local_variable, use_key_in_widget_constructors, unused_field
 
 import 'package:flutter/material.dart';
 import 'package:pendekar/constants/constant.dart';
@@ -6,7 +6,6 @@ import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/Beasiswamahasiswa.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/analisaberita.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/buktidukungspbe.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/carehub.dart';
-import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/digiform.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/dinsosapp.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/emonev.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/esakip.dart';
@@ -22,7 +21,6 @@ import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/retribusi.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/ruangrapat.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/sicakep.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/silandep.dart';
-import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/simandor.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/simonev.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/simpeg.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/siopa.dart';
@@ -36,11 +34,9 @@ import 'package:pendekar/daftarAplikasi/aplikasi%20warga/awaksigap.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/edu.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/esayur.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/madiuntoday.dart';
-import 'package:pendekar/daftarAplikasi/aplikasi%20warga/matawarga.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/peceltumpang.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/ppid.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/sicaker.dart';
-import 'package:pendekar/daftarAplikasi/aplikasi%20warga/smartcity.dart';
 import 'package:pendekar/homepage/size_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -191,15 +187,15 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
         "page": webspbe(),
       },
       {
-        "icon": "assets/images/imgicon/bakul.png",
+        "icon": "assets/images/imgicon/jdih.png",
         "text": "J.D.I.H",
         "page": webjdih(),
       },
-      {
-        "icon": "assets/images/imgicon/digiform.png",
-        "text": "DIGIFORM DUKCAPIL",
-        "page": webdigiform(),
-      },
+      // {
+      //   "icon": "assets/images/imgicon/digiform.png",
+      //   "text": "DIGIFORM DUKCAPIL",
+      //   "page": webdigiform(),
+      // },
 
       {
         "icon": "assets/images/imgicon/emonev.png",
@@ -249,49 +245,31 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
         "appId": "com.kominfo.proumkm",
         "uriScheme": "proumkm://",
       },
-      // {
-      //   "icon": "assets/images/imgicon/ekak.png",
-      //   "text": "EKAK",
-      //   "page": webekak(),
-      // },
 
       {
         "icon": "assets/images/imgicon/esakip.png",
         "text": "ESAKIP",
         "page": webesakip(),
       },
-      // {
-      //   "icon": "assets/images/imgicon/esppd.png",
-      //   "text": "ESPPD",
-      //   "page": webesppd(),
-      // },
 
       {
         "icon": "assets/images/imgicon/exec.png",
         "text": "EXECUTIVE SUMMARY",
         "page": webexec(),
       },
-      // {
-      //   "icon": "assets/images/imgicon/gedungdiklat.png",
-      //   "text": "GEDUNG DIKLAT",
-      //   "page": webgedungdiklat(),
-      // },
+
       {
         "icon": "assets/images/imgicon/lppd.png",
         "text": "LPPD",
         "page": weblppd(),
       },
 
-      {
-        "icon": "assets/images/imgicon/matawarga.png",
-        "text": "MATAWARGA",
-        "page": webmatawarga(),
-      },
       // {
-      //   "icon": "assets/images/imgicon/ppkm.png",
-      //   "text": "PPKM",
-      //   "page": webppkm(),
+      //   "icon": "assets/images/imgicon/matawarga.png",
+      //   "text": "MATAWARGA",
+      //   "page": webmatawarga(),
       // },
+
       {
         "icon": "assets/images/imgicon/puskesos.png",
         "text": "PUSKESOS",
@@ -307,33 +285,12 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
         "text": "RUANG RAPAT",
         "page": webruangrapat(),
       },
-      // {
-      //   "icon": "assets/images/imgicon/satudata.png",
-      //   "text": "SATUDATA",
-      //   "page": websatudata(),
-      // },
-      // {
-      //   "icon": "assets/images/imgicon/sdm.png",
-      //   "text": "SDM",
-      //   "page": websdm(),
-      // },
 
       // {
-      //   "icon": "assets/images/imgicon/sikd.png",
-      //   "text": "SIKD",
-      //   "page": websikd(),
+      //   "icon": "assets/images/imgicon/simandor.png",
+      //   "text": "SIMANDOR",
+      //   "page": websimandor(),
       // },
-      // {
-      //   "icon": "assets/images/imgicon/silapling.png",
-      //   "text": "SILAPLING",
-      //   "page": websilapling(),
-      // },
-
-      {
-        "icon": "assets/images/imgicon/simandor.png",
-        "text": "SIMANDOR",
-        "page": websimandor(),
-      },
       {
         "icon": "assets/images/imgicon/simonev.png",
         "text": "SIMONEV",
@@ -356,17 +313,6 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
         "text": "SITEBAS",
         "page": websitebas(),
       },
-
-      {
-        "icon": "assets/images/imgicon/smartcity.png",
-        "text": "SMARTCITY",
-        "page": websamrtcity(),
-      },
-      // {
-      //   "icon": "assets/images/imgicon/wbs.png",
-      //   "text": "WBS",
-      //   "page": webwbs(),
-      // },
     ];
 
     Future<void> launchPlayStore(String appId) async {
@@ -463,9 +409,9 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
         "uriScheme": "com.kominfo.pasar_emadiun://",
       },
       {
-        "icon": "assets/images/imgicon/peceltumpang.png",
+        "icon": "assets/images/imgicon/pecel.png",
         "text": "PECEL TUMPANG",
-        "page": webpecel(),
+        "page": WebPecel(),
       },
 
       {
@@ -494,11 +440,6 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
         "text": "SICAKER",
         "page": websicaker(),
       },
-      // {
-      //   "icon": "assets/images/imgicon/sikepo.png",
-      //   "text": "SIKEPO",
-      //   "page": websikepo(),
-      // },
     ];
 
     Future<void> launchPlayStore(String appId) async {
@@ -799,7 +740,7 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
       {
         "icon": "assets/images/imgicon/edu.png",
         "text": "EDU",
-        "page": webedu(),
+        "page": WebEdu(),
       },
       {
         "icon": "assets/images/imgicon/madiuntoday.png",
@@ -808,7 +749,7 @@ class _SemuaaplikasiState extends State<Semuaaplikasi> {
       },
       {
         "icon": "assets/images/imgicon/sicakep.png",
-        "text": "SICAKEP",
+        "text": "AGENDA KOTA MADIUN",
         "page": websicakep(),
       },
     ];
