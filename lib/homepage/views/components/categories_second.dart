@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:just_audio/just_audio.dart';
 import 'package:marquee/marquee.dart';
 import 'package:pendekar/constants/constant.dart';
+import 'package:pendekar/daftarAplikasi/aplikasi%20ASN/manekin.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/awaksigap.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/madiuntoday.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/mbangunswarga.dart';
@@ -56,14 +57,15 @@ class _CategoriesSecondState extends State<CategoriesSecond>
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> CategoriesSecond = [
       {
-        "icon": "assets/images/imgicon/mbangun.png",
-        "text": "Mbangun Swarga",
-        "page": WebMcm(),
+        "icon": "assets/images/imgicon/pecel.png",
+        "text": "Layanan Kesehatan",
+        "page": LayananKesehatan(),
       },
       {
-        "icon": "assets/images/imgicon/siopa.png",
-        "text": "PAJAK",
-        "page": DialogWarning(),
+        "icon": "assets/images/imgicon/ekinerja.png",
+        "text": "CCTV ",
+        "appId": "id.olean.cctv_madiun",
+        "uriScheme": "cctv://",
       },
       {
         "icon": "assets/images/imgicon/peceltumpang.png",
@@ -97,11 +99,11 @@ class _CategoriesSecondState extends State<CategoriesSecond>
         case "INFORMASI":
           page = LayananInformasi();
           break;
-        case "Mbangun Swarga":
-          page = WebMcm();
-          break;
-        case "PAJAK":
+        case "Layanan Kesehatan":
           page = LayananKesehatan();
+          break;
+        case "CCTV":
+          page = LayananPublik();
           break;
         case "Semua layanan":
           page = Semuaaplikasi();
@@ -137,7 +139,7 @@ class _CategoriesSecondState extends State<CategoriesSecond>
             icon: CategoriesSecond[index]["icon"],
             text: CategoriesSecond[index]["text"],
             press: () {
-              if (CategoriesSecond[index]["text"] == "Mbangun Swarga") {
+              if (CategoriesSecond[index]["text"] == "MANEKIN") {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -202,9 +204,22 @@ class CategoryCard extends StatelessWidget {
                   height: 45,
                   width: 45,
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: hThirdColor.withOpacity(0.5).withOpacity(0.5),
-                    // borderRadius: BorderRadius.circular(10),
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.blueAccent,
+                        Colors.greenAccent
+                      ], // Gradasi warna biru
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        offset: Offset(0, 4),
+                        blurRadius: 6,
+                      ),
+                    ],
                   ),
                   child: Image.asset(icon, width: 10, height: 10),
                 ),

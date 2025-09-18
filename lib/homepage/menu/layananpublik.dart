@@ -3,11 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:pendekar/constants/constant.dart';
 import 'package:pendekar/daftarAplikasi/aplikasi%20warga/esayur.dart';
-import 'package:pendekar/daftarAplikasi/aplikasi%20warga/sicaker.dart';
 import 'package:pendekar/homepage/size_config.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../daftarAplikasi/aplikasi ASN/Beasiswamahasiswa.dart';
 
 class LayananPublik extends StatefulWidget {
   const LayananPublik({super.key});
@@ -133,22 +130,22 @@ class _LayananPublikState extends State<LayananPublik> {
         "uriScheme": "com.kominfo.pasar_emadiun://",
       },
 
-      {
-        "icon": "assets/images/imgicon/beasiswa.png",
-        "text": "BEASISWA MAHASISWA",
-        "page": webbeasiswa(),
-      },
+      // {
+      //   "icon": "assets/images/imgicon/beasiswa.png",
+      //   "text": "BEASISWA MAHASISWA",
+      //   "page": webbeasiswa(),
+      // },
 
       {
         "icon": "assets/images/imgicon/esayur.png",
         "text": "ESAYUR",
         "page": webesayur(),
       },
-      {
-        "icon": "assets/images/imgicon/sicaker.png",
-        "text": "SICAKER",
-        "page": websicaker(),
-      },
+      // {
+      //   "icon": "assets/images/imgicon/sicaker.png",
+      //   "text": "SICAKER",
+      //   "page": websicaker(),
+      // },
     ];
 
     Future<void> launchPlayStore(String appId) async {

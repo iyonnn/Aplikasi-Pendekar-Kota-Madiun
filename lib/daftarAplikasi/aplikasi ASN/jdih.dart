@@ -322,9 +322,14 @@ class _WebViewPageState extends State<WebViewPage> {
                 Tooltip(
                   message: 'Sebelumnya',
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_webViewController != null) {
-                        _webViewController?.goBack();
+                        bool canGoBack = await _webViewController!.canGoBack();
+                        if (canGoBack) {
+                          _webViewController?.goBack();
+                        } else {
+                          Navigator.of(context).pop();
+                        }
                       }
                     },
                     style: ElevatedButton.styleFrom(

@@ -150,31 +150,31 @@ class _LayananAsnState extends State<LayananAsn> {
         "text": "EMONEV",
         "page": webemonev(),
       },
-      {
-        "icon": "assets/images/imgicon/esurat.png",
-        "text": "ESURAT",
-        "page": webesurat(),
-      },
+      // {
+      //   "icon": "assets/images/imgicon/esurat.png",
+      //   "text": "ESURAT",
+      //   "page": webesurat(),
+      // },
       {
         "icon": "assets/images/imgicon/manekin.png",
         "text": "MANEKIN",
         "page": webmanekin(),
       },
-      {
-        "icon": "assets/images/imgicon/manpro.png",
-        "text": "MANPRO",
-        "page": webmanpro(),
-      },
-      {
-        "icon": "assets/images/imgicon/skp.png",
-        "text": "SKP",
-        "page": webskp(),
-      },
-      {
-        "icon": "assets/images/imgicon/simpeg.png",
-        "text": "SIMPEG",
-        "page": websimpeg(),
-      },
+      // {
+      //   "icon": "assets/images/imgicon/manpro.png",
+      //   "text": "MANPRO",
+      //   "page": webmanpro(),
+      // },
+      // {
+      //   "icon": "assets/images/imgicon/skp.png",
+      //   "text": "SKP",
+      //   "page": webskp(),
+      // },
+      // {
+      //   "icon": "assets/images/imgicon/simpeg.png",
+      //   "text": "SIMPEG",
+      //   "page": websimpeg(),
+      // },
 
       {
         "icon": "assets/images/imgicon/carehub.png",
@@ -194,17 +194,17 @@ class _LayananAsnState extends State<LayananAsn> {
         "uriScheme": "proumkm://",
       },
 
-      {
-        "icon": "assets/images/imgicon/esakip.png",
-        "text": "ESAKIP",
-        "page": webesakip(),
-      },
+      // {
+      //   "icon": "assets/images/imgicon/esakip.png",
+      //   "text": "ESAKIP",
+      //   "page": webesakip(),
+      // },
 
-      {
-        "icon": "assets/images/imgicon/exec.png",
-        "text": "EXECUTIVE SUMMARY",
-        "page": webexec(),
-      },
+      // {
+      //   "icon": "assets/images/imgicon/exec.png",
+      //   "text": "EXECUTIVE SUMMARY",
+      //   "page": webexec(),
+      // },
 
       {
         "icon": "assets/images/imgicon/lppd.png",
@@ -218,11 +218,11 @@ class _LayananAsnState extends State<LayananAsn> {
         "page": webmatawarga(),
       },
 
-      {
-        "icon": "assets/images/imgicon/puskesos.png",
-        "text": "PUSKESOS",
-        "page": webpuskesos(),
-      },
+      // {
+      //   "icon": "assets/images/imgicon/puskesos.png",
+      //   "text": "PUSKESOS",
+      //   "page": webpuskesos(),
+      // },
       {
         "icon": "assets/images/imgicon/retribusi.png",
         "text": "RETRIBUSI",

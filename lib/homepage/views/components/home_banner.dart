@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, unused_local_variable
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide CarouselController;
 
 class HomeBanner extends StatefulWidget {
   const HomeBanner({super.key});

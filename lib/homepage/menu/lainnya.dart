@@ -95,11 +95,11 @@ class _LainnyaState extends State<Lainnya> {
   Widget _appLainnya(BuildContext context) {
     List<Map<String, dynamic>> categories = [
       // +++++++++++++++++++++++APP layanan Publik +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-      {
-        "icon": "assets/images/imgicon/ewaris.png",
-        "text": "EWARIS",
-        "page": webewaris(),
-      },
+      // {
+      //   "icon": "assets/images/imgicon/ewaris.png",
+      //   "text": "EWARIS",
+      //   "page": webewaris(),
+      // },
       {
         "icon": "assets/images/imgicon/bookingprc.png",
         "text": "Booking PRC",

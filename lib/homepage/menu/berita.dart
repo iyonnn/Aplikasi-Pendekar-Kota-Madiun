@@ -100,11 +100,11 @@ class _LayananBeritaState extends State<LayananBerita> {
   Widget _appLayananBerita(BuildContext context) {
     List<Map<String, dynamic>> categories = [
       // +++++++++++++++++++++++APP layanan Publik +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-      {
-        "icon": "assets/images/imgicon/sicaker.png",
-        "text": "SICAKER",
-        "page": websicaker(),
-      },
+      // {
+      //   "icon": "assets/images/imgicon/sicaker.png",
+      //   "text": "SICAKER",
+      //   "page": websicaker(),
+      // },
       {
         "icon": "assets/images/imgicon/ewaris.png",
         "text": "Madiuntoday",
@@ -121,11 +121,11 @@ class _LayananBeritaState extends State<LayananBerita> {
         "text": "SMARTCITY",
         "page": websmartcity(),
       },
-      {
-        "icon": "assets/images/imgicon/beasiswa.png",
-        "text": "BEASISWA MAHASISWA",
-        "page": webbeasiswa(),
-      },
+      // {
+      //   "icon": "assets/images/imgicon/beasiswa.png",
+      //   "text": "BEASISWA MAHASISWA",
+      //   "page": webbeasiswa(),
+      // },
     ];
 
     Future<void> launchPlayStore(String appId) async {

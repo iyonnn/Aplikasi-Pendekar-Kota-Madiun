@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class webawaksigap extends StatefulWidget {
   const webawaksigap({Key? key}) : super(key: key);
@@ -93,6 +94,39 @@ class _webawaksigapState extends State<webawaksigap> {
                     onWebViewCreated: (controller) {
                       _webViewController = controller;
                     },
+                    shouldOverrideUrlLoading:
+                        (controller, navigationAction) async {
+                      final uri = navigationAction.request.url;
+
+                      if (uri != null) {
+                        if (uri.scheme == 'tel' ||
+                            uri.scheme == 'mailto' ||
+                            uri.scheme == 'intent' ||
+                            uri.scheme == 'whatsapp') {
+                          try {
+                            if (await canLaunchUrl(uri)) {
+                              await launchUrl(uri,
+                                  mode: LaunchMode.externalApplication);
+                            } else {
+                              print("Tidak dapat membuka URL: $uri");
+                            }
+                          } catch (e) {
+                            print("Gagal membuka URL: $e");
+                          }
+                          return NavigationActionPolicy.CANCEL;
+                        }
+                      }
+                      return NavigationActionPolicy.ALLOW;
+                    },
+
+                    androidOnGeolocationPermissionsShowPrompt:
+                        (controller, origin) async {
+                      return GeolocationPermissionShowPromptResponse(
+                        allow: true,
+                        retain: true,
+                      );
+                    },
+
                     androidOnPermissionRequest:
                         (InAppWebViewController controller, String origin,
                             List<String> resources) async {
@@ -235,9 +269,14 @@ class _webawaksigapState extends State<webawaksigap> {
                 Tooltip(
                   message: 'Sebelumnya',
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_webViewController != null) {
-                        _webViewController?.goBack();
+                        bool canGoBack = await _webViewController!.canGoBack();
+                        if (canGoBack) {
+                          _webViewController?.goBack();
+                        } else {
+                          Navigator.of(context).pop();
+                        }
                       }
                     },
                     style: ElevatedButton.styleFrom(

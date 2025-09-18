@@ -108,11 +108,11 @@ class _LayananInformasiState extends State<LayananInformasi> {
         "page": websicakep(),
       },
 
-      {
-        "icon": "assets/images/imgicon/edu.png",
-        "text": "EDU",
-        "page": WebEdu(),
-      },
+      // {
+      //   "icon": "assets/images/imgicon/edu.png",
+      //   "text": "EDU",
+      //   "page": WebEdu(),
+      // },
       {
         "icon": "assets/images/imgicon/madiuntoday.png",
         "text": "MADIUNTODAY",

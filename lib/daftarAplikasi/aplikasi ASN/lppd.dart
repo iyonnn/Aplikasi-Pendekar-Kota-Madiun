@@ -235,9 +235,14 @@ class _weblppdState extends State<weblppd> {
                 Tooltip(
                   message: 'Sebelumnya',
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_webViewController != null) {
-                        _webViewController?.goBack();
+                        bool canGoBack = await _webViewController!.canGoBack();
+                        if (canGoBack) {
+                          _webViewController?.goBack();
+                        } else {
+                          Navigator.of(context).pop();
+                        }
                       }
                     },
                     style: ElevatedButton.styleFrom(

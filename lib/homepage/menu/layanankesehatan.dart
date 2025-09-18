@@ -99,11 +99,11 @@ class _LayananKesehatanState extends State<LayananKesehatan> {
     List<Map<String, dynamic>> categories = [
       // +++++++++++++++++++++++APP layanan pengaduan +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-      {
-        "icon": "assets/images/imgicon/sipdok.png",
-        "text": "SIPDOK",
-        "page": websipdok(),
-      },
+      // {
+      //   "icon": "assets/images/imgicon/sipdok.png",
+      //   "text": "SIPDOK",
+      //   "page": websipdok(),
+      // },
       {
         "icon": "assets/images/imgicon/rumahsakit.png",
         "text": "ANTRIAN RUMAH SAKIT",

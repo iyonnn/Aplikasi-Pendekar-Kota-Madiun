@@ -14,7 +14,7 @@ class WebMcm extends StatefulWidget {
 class _WebMcmState extends State<WebMcm> {
   bool isLoading = true;
   InAppWebViewController? _webViewController;
-  final String url = 'https://mcm.madiunkota.go.id/';
+  final String url = 'https://mbangunswarga.madiunkota.go.id/login';
 
   @override
   void initState() {
@@ -168,7 +168,7 @@ class _WebMcmState extends State<WebMcm> {
                       children: [
                         Icon(Icons.home, color: Colors.white),
                         Text(
-                          'Kembali Ke Menu',
+                          'Kembali Ke Home',
                           style: TextStyle(
                             fontSize: fontSize,
                             color: Colors.white,
@@ -212,9 +212,14 @@ class _WebMcmState extends State<WebMcm> {
                 Tooltip(
                   message: 'Sebelumnya',
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_webViewController != null) {
-                        _webViewController?.goBack();
+                        bool canGoBack = await _webViewController!.canGoBack();
+                        if (canGoBack) {
+                          _webViewController?.goBack();
+                        } else {
+                          Navigator.of(context).pop();
+                        }
                       }
                     },
                     style: ElevatedButton.styleFrom(

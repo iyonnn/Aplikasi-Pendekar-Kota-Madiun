@@ -410,9 +410,14 @@ class _WebViewPageState extends State<WebViewPage> {
                 ),
                 SizedBox(width: screenWidth * 0.01),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     if (_webViewController != null) {
-                      _webViewController?.goBack();
+                      bool canGoBack = await _webViewController!.canGoBack();
+                      if (canGoBack) {
+                        _webViewController?.goBack();
+                      } else {
+                        Navigator.of(context).pop();
+                      }
                     }
                   },
                   child: Container(
